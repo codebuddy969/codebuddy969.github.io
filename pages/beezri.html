@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Beezri Administration Platform - Project Intelligence Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+        }
+
+        .slide-container {
+            width: 100%;
+            min-width: 1280px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0f172a;
+        }
+
+        /* Custom typography classes */
+        .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Decorative shapes */
+        .shape-circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #1e293b; /* Slate 800 */
+            z-index: 0;
+        }
+
+        .glass-panel {
+            background-color: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        .tech-pill {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        /* Card Styling */
+        .metric-card {
+            background-color: #1e293b; /* Slate 800 */
+            border: 1px solid #334155; /* Slate 700 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .impact-pill {
+            background-color: rgba(16, 185, 129, 0.05); /* Emerald 500 at 5% */
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Decorative Background */
+        .bg-grid {
+            background-image:
+                    linear-gradient(#1e293b 1px, transparent 1px),
+                    linear-gradient(90deg, #1e293b 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+        }
+
+        /* Pain Card Styling (from 3.html) */
+        .pain-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Icon Containers (from 3.html) */
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* Error Line (from 3.html) */
+        .error-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        /* Decorative Dots (from 3.html) */
+        .bg-dots {
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        /* Layer Styling (from 4.html) */
+        .layer-box {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .component-card {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Connecting Arrows (from 4.html) */
+        .arrow-down {
+            width: 2px;
+            height: 24px;
+            background-color: #475569;
+            margin: 0 auto;
+            position: relative;
+        }
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #475569;
+        }
+
+        /* Accents (from 4.html) */
+        .accent-blue { border-left: 4px solid #3b82f6; }
+        .accent-emerald { border-left: 4px solid #10b981; }
+        .accent-purple { border-left: 4px solid #8b5cf6; }
+
+        /* SECTION 5: Hero Code Features Styles */
+        .feature-card {
+            background-color: #1e293b; /* Slate 800 */
+            border: 1px solid #334155; /* Slate 700 */
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .code-window {
+            background-color: #0f172a; /* Slate 900 */
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            position: relative;
+            margin-top: auto;
+        }
+
+        .code-window::before {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 8px;
+            background-color: #334155;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        /* Syntax Highlighting Mock */
+        .syntax-keyword { color: #c084fc; } /* Purple */
+        .syntax-func { color: #60a5fa; } /* Blue */
+        .syntax-string { color: #4ade80; } /* Green */
+        .syntax-comment { color: #64748b; } /* Slate 500 */
+        .syntax-var { color: #f472b6; } /* Pink */
+
+        /* Impact Metrics */
+        .impact-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 12px;
+        }
+
+        /* Card Header Icons */
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        /* Specific Card Themes */
+        .theme-blue .icon-wrapper { background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .theme-blue .impact-badge { background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .theme-blue:hover { border-color: rgba(59, 130, 246, 0.5); }
+
+        .theme-emerald .icon-wrapper { background-color: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .theme-emerald .impact-badge { background-color: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .theme-emerald:hover { border-color: rgba(16, 185, 129, 0.5); }
+
+        .theme-purple .icon-wrapper { background-color: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .theme-purple .impact-badge { background-color: rgba(168, 85, 247, 0.1); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .theme-purple:hover { border-color: rgba(168, 85, 247, 0.5); }
+
+        /* SECTION 6: Roadmap Styles */
+        .roadmap-card {
+            background-color: #1e293b; /* Slate 800 */
+            border: 1px solid #334155; /* Slate 700 */
+            border-radius: 12px;
+            padding: 24px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            z-index: 10;
+        }
+
+        .roadmap-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Timeline Connector */
+        .timeline-track {
+            position: absolute;
+            top: 50px; /* Adjust based on icon position */
+            left: 100px;
+            right: 100px;
+            height: 2px;
+            background-color: #334155;
+            z-index: 0;
+        }
+
+        /* Tech Stack Pills */
+        .tech-pill-roadmap {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* Theme Colors */
+        .theme-ai { border-top: 4px solid #c084fc; } /* Purple */
+        .theme-ai .icon-box-roadmap { background-color: rgba(192, 132, 252, 0.1); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.2); }
+        .theme-ai:hover { border-color: #c084fc; }
+
+        .theme-realtime { border-top: 4px solid #38bdf8; } /* Sky Blue */
+        .theme-realtime .icon-box-roadmap { background-color: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); }
+        .theme-realtime:hover { border-color: #38bdf8; }
+
+        .theme-chain { border-top: 4px solid #34d399; } /* Emerald */
+        .theme-chain .icon-box-roadmap { background-color: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); }
+        .theme-chain:hover { border-color: #34d399; }
+
+        .icon-box-roadmap {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            background-color: #0f172a;
+            z-index: 20;
+        }
+
+        .phase-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background-color: #0f172a;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            border: 1px solid #334155;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+    <!-- Background Elements -->
+    <!-- Large circle top right -->
+    <div class="shape-circle w-[800px] h-[800px] -top-[200px] -right-[200px] opacity-20"></div>
+    <!-- Medium circle bottom left -->
+    <div class="shape-circle w-[600px] h-[600px] -bottom-[200px] -left-[100px] opacity-10"></div>
+    <!-- Grid overlay using simple borders for tech feel without gradients -->
+    <div class="absolute inset-0 z-0 opacity-10 pointer-events-none flex flex-wrap content-start">
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+        <div class="w-full h-px bg-slate-500 mb-20"></div>
+    </div>
+
+    <!-- SECTION 1: Cover -->
+    <div class="min-h-screen flex flex-col z-10 px-24 pt-20 pb-8" style="background-color: rgb(242, 242, 242);">
+        <div class="flex-1 flex">
+            <div class="flex flex-col justify-center w-3/5 pr-12">
+                <!-- Status Badge -->
+                <div class="mb-8">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full border border-slate-700 bg-slate-800/50 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 mr-3 animate-pulse"></span>
+                        <p class="text-emerald-400 text-xs font-bold tracking-widest uppercase font-mono m-0">Project Intelligence Report</p>
+                    </div>
+                </div>
+                <!-- Main Title -->
+                <h1 class="text-7xl font-bold text-white font-grotesk leading-tight mb-4 tracking-tight" style="color: rgb(107, 151, 234);">
+                        <span style="color: rgb(15, 23, 42);">Beezri
+</span><span style="color: rgb(15, 23, 42);">Administration</span><span style="color: rgb(15, 23, 42);">
+                        Platform</span>
+                </h1>
+                <!-- Subtitle -->
+                <p class="text-2xl text-slate-300 font-light mb-8 mt-4">
+                    Financial Aid Management System (FAMS)
+                </p>
+                <!-- Description with border accent -->
+                <div class="border-l-4 border-emerald-500 pl-6 py-2">
+                    <p class="text-slate-400 text-lg leading-relaxed m-0">
+                        Orchestrating compliant, auditable donor-to-recipient flows across projects, budgets, and currencies.
+                    </p>
+                </div>
+            </div>
+            <!-- Right Visual / Iconography -->
+            <div class="w-2/5 relative flex items-center justify-center">
+                <!-- Abstract Dashboard Card -->
+                <div class="glass-panel w-full rounded-xl p-6 relative transform rotate-y-12 rotate-3 hover:rotate-0 transition-transform duration-700 shadow-2xl">
+                    <!-- Fake Window Controls -->
+                    <div class="flex gap-2 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-red-500 opacity-70"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 opacity-70"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500 opacity-70"></div>
+                    </div>
+                    <!-- Content Lines -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="h-4 bg-slate-600 rounded w-1/3 opacity-50"></div>
+                            <div class="h-8 w-8 bg-emerald-500 rounded flex items-center justify-center text-slate-900">
+                                <i class="fas fa-check text-xs"></i>
+                            </div>
+                        </div>
+                        <!-- Data Row 1 -->
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 rounded bg-slate-700 flex items-center justify-center text-slate-400">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <div class="h-2 bg-slate-600 rounded w-3/4 opacity-40"></div>
+                                <div class="h-2 bg-slate-600 rounded w-1/2 opacity-30"></div>
+                            </div>
+                            <div class="text-emerald-400 font-mono text-sm">+$1,250.00</div>
+                        </div>
+                        <!-- Data Row 2 -->
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 rounded bg-slate-700 flex items-center justify-center text-slate-400">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <div class="h-2 bg-slate-600 rounded w-4/5 opacity-40"></div>
+                                <div class="h-2 bg-slate-600 rounded w-1/3 opacity-30"></div>
+                            </div>
+                            <div class="text-emerald-400 font-mono text-sm">+$500.00</div>
+                        </div>
+                        <!-- Data Row 3 -->
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 rounded bg-slate-700 flex items-center justify-center text-slate-400">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <div class="h-2 bg-slate-600 rounded w-2/3 opacity-40"></div>
+                                <div class="h-2 bg-slate-600 rounded w-1/2 opacity-30"></div>
+                            </div>
+                            <div class="text-slate-500 font-mono text-xs">Validated</div>
+                        </div>
+                    </div>
+                    <!-- Code Snippet Overlay -->
+                    <div class="absolute -bottom-8 -left-8 bg-slate-800 rounded-lg p-4 border border-slate-700 shadow-xl w-64">
+                        <p class="font-mono text-xs text-pink-400 mb-1">class BankAccountCheck</p>
+                        <p class="font-mono text-xs text-slate-400 pl-4">public function check() {</p>
+                        <p class="font-mono text-xs text-emerald-400 pl-8">return algorithm_match;</p>
+                        <p class="font-mono text-xs text-slate-400 pl-4">}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bar -->
+        <div class="h-24 bg-slate-900 border-t border-slate-800 z-20 px-24 flex items-center justify-between" style="background-color: rgb(242, 242, 242);">
+            <!-- Metadata -->
+            <div class="flex items-center space-x-8 text-slate-400 text-sm">
+                <div class="flex items-center">
+                    <i class="far fa-calendar-alt mr-3 text-emerald-500"></i>
+                    <p class="m-0 font-medium">February 24, 2026</p>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-layer-group mr-3 text-emerald-500"></i>
+                    <p class="m-0 font-medium">Internal Technical Documentation</p>
+                </div>
+            </div>
+            <!-- Tech Stack -->
+            <div class="flex items-center">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mr-4 m-0">Tech Stack</p>
+                <div class="flex space-x-3">
+                    <div class="tech-pill px-3 py-1 rounded text-xs font-mono font-bold">Laravel 10</div>
+                    <div class="tech-pill px-3 py-1 rounded text-xs font-mono font-bold">Vue 2</div>
+                    <div class="tech-pill px-3 py-1 rounded text-xs font-mono font-bold">MySQL</div>
+                    <div class="tech-pill px-3 py-1 rounded text-xs font-mono font-bold">Redis</div>
+                    <div class="tech-pill px-3 py-1 rounded text-xs font-mono font-bold">MeiliSearch</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Executive Summary -->
+    <div class="min-h-screen flex flex-col z-10" style="background-color: rgb(15, 23, 42);">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-grid z-0"></div>
+        <!-- Header -->
+        <header class="z-10 px-16 pt-12 pb-6 flex justify-between items-end border-b border-slate-800" style="background-color: rgb(15, 23, 42);">
+            <div>
+                <p class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest mb-2" style="color: rgb(255, 255, 255);">Beezri Administration Platform</p>
+                <h1 class="text-4xl font-bold text-white font-grotesk tracking-tight">Executive Summary</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-slate-400">
+                <i class="fas fa-chart-line text-emerald-500" style="color: rgb(255, 255, 255);"></i>
+                <p class="text-sm font-medium" style="background-color: rgb(15, 23, 42); color: rgb(255, 255, 255);">System Intelligence Report</p>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 z-10 px-16 py-8 flex gap-12" style="background-color: rgb(15, 23, 42);">
+            <!-- Left Column: Metrics & Tech Stack (35%) -->
+            <div class="w-[380px] flex flex-col gap-6">
+                <!-- Scale Card -->
+                <div class="metric-card rounded-xl p-6 relative overflow-hidden" style="background-color: rgb(242, 242, 242);">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-500 opacity-5 rounded-bl-full -mr-4 -mt-4"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center text-emerald-400">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">SYSTEM SCALE</span>
+                    </div>
+                    <div class="flex gap-4 mb-2">
+                        <div>
+                            <p class="text-3xl font-bold text-white font-grotesk" style="color: rgb(0, 0, 0);">50+</p>
+                            <p class="text-xs text-slate-400 mt-1">Core Models</p>
+                        </div>
+                        <div class="w-px bg-slate-700 h-10 self-center"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-white font-grotesk" style="color: rgb(0, 0, 0);">80+</p>
+                            <p class="text-xs text-slate-400 mt-1">DB Tables</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tech Stack Card -->
+                <div class="metric-card rounded-xl p-6" style="background-color: rgb(242, 242, 242);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center text-blue-400">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">TECH STACK</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                            <p class="text-sm text-slate-300">Backend</p>
+                            <p class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Laravel 10</p>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                            <p class="text-sm text-slate-300">Frontend</p>
+                            <p class="text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-1 rounded" style="color: rgb(0, 0, 0);">Vue 2</p>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                            <p class="text-sm text-slate-300">Data & Search</p>
+                            <div class="flex gap-1">
+                                <span class="text-xs font-mono text-slate-400">MySQL</span>
+                                <span class="text-xs font-mono text-slate-600">•</span>
+                                <span class="text-xs font-mono text-slate-400">MeiliSearch</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-slate-300">Queue</p>
+                            <p class="text-xs font-mono text-orange-400 bg-orange-500/10 px-2 py-1 rounded">Redis</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Integration Card -->
+                <div class="metric-card rounded-xl p-6 flex-1" style="background-color: rgb(242, 242, 242);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center text-purple-400">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">INTEGRATIONS</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-slate-900/50 p-2 rounded border border-slate-700/50 flex items-center gap-2">
+                            <i class="fas fa-envelope text-xs text-slate-500"></i>
+                            <p class="text-xs text-slate-300">IMAP Email</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-2 rounded border border-slate-700/50 flex items-center gap-2">
+                            <i class="fab fa-google-drive text-xs text-slate-500"></i>
+                            <p class="text-xs text-slate-300">Google Drive</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-2 rounded border border-slate-700/50 flex items-center gap-2">
+                            <i class="fas fa-university text-xs text-slate-500"></i>
+                            <p class="text-xs text-slate-300">Bank APIs</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-2 rounded border border-slate-700/50 flex items-center gap-2">
+                            <i class="fas fa-credit-card text-xs text-slate-500"></i>
+                            <p class="text-xs text-slate-300">EzCount</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Context & Impact (65%) -->
+            <div class="flex-1 flex flex-col justify-between">
+                <!-- Strategic Overview -->
+                <div>
+                    <div class="border-l-4 border-emerald-500 pl-6 py-1 mb-8">
+                        <p class="text-xl text-slate-200 leading-relaxed font-light" style="color: rgb(255, 255, 255);">
+                            Beezri is a purpose-built <span class="text-emerald-400 font-medium">Financial Aid Management System</span> that orchestrates complex charitable operations, ensuring strict compliance with Israeli banking standards and rigorous audit requirements.
+                        </p>
+                    </div>
+                    <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-6 border-b border-slate-800 pb-2" style="color: rgb(255, 255, 255);">Core Capabilities</h3>
+                    <div class="grid grid-cols-1 gap-5">
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 text-emerald-500">
+                                <i class="fas fa-coins text-sm" style="color: rgb(255, 254, 254);"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-medium text-lg" style="color: rgb(255, 255, 255);">Multi-Currency Engine</p>
+                                <p class="text-slate-400 text-sm leading-relaxed" style="color: rgb(255, 255, 255);">Manages donations and disbursements across USD, EUR, and ILS with real-time exchange rate conversion and historical tracking.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 text-blue-500">
+                                <i class="fas fa-shield-alt text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-medium text-lg" style="color: rgb(253, 253, 253);">Banking Compliance & Validation</p>
+                                <p class="text-slate-400 text-sm leading-relaxed" style="color: rgb(237, 237, 237);">Implements 12+ algorithmic checks for Israeli bank accounts (Luhn-like checksums) to eliminate manual errors and fraud.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1 w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 text-purple-500">
+                                <i class="fas fa-file-signature text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-medium text-lg" style="color: rgb(245, 245, 245);">Audit Trails & Automation</p>
+                                <p class="text-slate-400 text-sm leading-relaxed" style="color: rgb(255, 253, 253);">Full change tracking for regulatory scrutiny combined with automated support file imports via email and Excel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Business Impact Section -->
+                <div class="mt-8 bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                    <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4 text-white">Business Impact</h3>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center border-r border-slate-700 last:border-0">
+                            <p class="text-4xl font-bold text-emerald-400 font-mono mb-1 text-white">70%</p>
+                            <p class="text-xs text-slate-400 uppercase tracking-wide text-white">Faster Processing</p>
+                        </div>
+                        <div class="text-center border-r border-slate-700 last:border-0">
+                            <p class="text-4xl font-bold text-emerald-400 font-mono mb-1 text-white"><1%</p>
+                            <p class="text-xs text-slate-400 uppercase tracking-wide text-white">Rejection Rate</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl font-bold text-white font-grotesk mb-1 mt-2">Real-Time</p>
+                            <p class="text-xs text-slate-400 uppercase tracking-wide text-white">Financial Visibility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Problem Statement (from 3.html) -->
+    <div class="min-h-screen flex flex-col z-10" style="background-color: rgb(15, 23, 42); color: #ffffff">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 bg-dots z-0 pointer-events-none"></div>
+        <!-- Header -->
+        <header class="z-10 px-16 pt-12 pb-6 flex justify-between items-end border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="px-2 py-1 rounded bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono font-bold uppercase tracking-widest">Pain Points</span>
+                    <span class="text-slate-500 font-mono text-xs uppercase tracking-widest text-white">Current Operational State</span>
+                </div>
+                <h1 class="text-4xl font-bold text-white font-grotesk tracking-tight">Fragmented Financial Operations</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-slate-400">
+                <i class="fas fa-triangle-exclamation text-amber-500"></i>
+                <p class="text-sm font-medium text-white">Critical Scaling Blockers</p>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 z-10 px-16 py-10">
+            <div class="flex flex-col h-full gap-6">
+                <!-- Top Row: 3 High Priority Technical Issues -->
+                <div class="grid grid-cols-3 gap-6 h-3/5">
+                    <!-- Card 1: Banking Compliance -->
+                    <div class="pain-card rounded-xl p-6 hover:border-red-500/50 group">
+                        <div class="error-line bg-red-500"></div>
+                        <div class="icon-box bg-red-500/10 text-red-400 border border-red-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-building-columns text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-grotesk">Banking Compliance</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Israeli banks utilize <span class="text-slate-200 font-medium">12+ unique validation algorithms</span> with complex branch-specific rules.
+                        </p>
+                        <div class="bg-slate-900/50 rounded p-3 border border-slate-700/50">
+                            <div class="flex items-center gap-2 text-xs text-red-400 font-mono mb-1">
+                                <i class="fas fa-times-circle"></i>
+                                <span class="text-white">High Failure Rate</span>
+                            </div>
+                            <p class="text-xs text-slate-500 text-white">Manual validation leads to rejected transfers and fraud risk.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2: Multi-Currency -->
+                    <div class="pain-card rounded-xl p-6 hover:border-orange-500/50 group">
+                        <div class="error-line bg-orange-500"></div>
+                        <div class="icon-box bg-orange-500/10 text-orange-400 border border-orange-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-coins text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-grotesk">Currency Complexity</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Managing balances across <span class="text-slate-200 font-medium">USD, EUR, &amp; ILS</span> requires real-time conversion for accurate budgeting.
+                        </p>
+                        <div class="bg-slate-900/50 rounded p-3 border border-slate-700/50">
+                            <div class="flex items-center gap-2 text-xs text-orange-400 font-mono mb-1">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span class="text-white">Budget Drift</span>
+                            </div>
+                            <p class="text-xs text-slate-500 text-white">Exchange rate fluctuations cause overdrafts without live tracking.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3: Allocation Chains -->
+                    <div class="pain-card rounded-xl p-6 hover:border-amber-500/50 group">
+                        <div class="error-line bg-amber-500"></div>
+                        <div class="icon-box bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-sitemap text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-grotesk">Allocation Chains</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Funds flow through complex paths: <span class="text-slate-200 font-medium">Donor → Chain → Collector → Recipient</span> across projects.
+                        </p>
+                        <div class="bg-slate-900/50 rounded p-3 border border-slate-700/50">
+                            <div class="flex items-center gap-2 text-xs text-amber-400 font-mono mb-1">
+                                <i class="fas fa-random"></i>
+                                <span class="text-white">Workflow Bottleneck</span>
+                            </div>
+                            <p class="text-xs text-slate-500 text-white">Manual approval routing creates delays in critical aid distribution.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Row: 2 Operational Issues -->
+                <div class="grid grid-cols-2 gap-6 h-2/5">
+                    <!-- Card 4: Audit Requirements -->
+                    <div class="pain-card rounded-xl p-6 flex gap-6 items-center hover:border-purple-500/50 group">
+                        <div class="error-line bg-purple-500"></div>
+                        <div class="flex flex-col justify-between h-full w-full">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2 font-grotesk">Regulatory Audit Trail</h3>
+                                    <p class="text-slate-400 text-sm">Non-profits face strict scrutiny. Spreadsheets fail to provide immutable change history.</p>
+                                </div>
+                                <div class="icon-box bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-0 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-file-contract text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex gap-3">
+                                <span class="text-xs font-mono bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700 text-white">Missing Logs</span>
+                                <span class="text-xs font-mono bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700 text-white">Compliance Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 5: Email Integration -->
+                    <div class="pain-card rounded-xl p-6 flex gap-6 items-center hover:border-blue-500/50 group">
+                        <div class="error-line bg-blue-500"></div>
+                        <div class="flex flex-col justify-between h-full w-full">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2 font-grotesk">Email Data Silos</h3>
+                                    <p class="text-slate-400 text-sm">Support requests arrive via unstructured IMAP emails, requiring manual entry.</p>
+                                </div>
+                                <div class="icon-box bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-0 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-inbox text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex gap-3">
+                                <span class="text-xs font-mono bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700 text-white">Data Entry Errors</span>
+                                <span class="text-xs font-mono bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700 text-white">Slow Response</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: Architecture Blueprint (from 4.html) -->
+    <div class="min-h-screen flex flex-col z-10" style="background-color: rgb(15, 23, 42); color: #ffffff">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
+        <!-- Header -->
+        <header class="z-10 px-16 pt-12 pb-6 flex justify-between items-end border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="px-2 py-1 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-bold uppercase tracking-widest">System Design</span>
+                    <span class="text-slate-500 font-mono text-xs uppercase tracking-widest text-white">Tech Stack &amp; Data Flow</span>
+                </div>
+                <h1 class="text-4xl font-bold text-white font-grotesk tracking-tight">Architecture Blueprint</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-slate-400">
+                <i class="fas fa-sitemap text-blue-500"></i>
+                <p class="text-sm font-medium text-white">Layered Architecture</p>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 z-10 px-16 py-8 flex gap-8">
+            <!-- Left Column: The Diagram (65%) -->
+            <div class="w-2/3 flex flex-col justify-center h-full py-2">
+                <!-- Layer 1: Presentation -->
+                <div class="layer-box accent-blue p-4 flex-1 flex flex-col justify-center relative">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-slate-800 rounded-bl-lg border-b border-l border-slate-700 text-xs text-blue-400 font-mono font-bold">PRESENTATION LAYER</div>
+                    <div class="grid grid-cols-3 gap-4 mt-2 h-full">
+                        <div class="component-card p-4 hover:border-blue-500/50 transition-colors">
+                            <i class="fab fa-vuejs text-2xl text-emerald-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Vue 2 SPA</p>
+                            <p class="text-slate-500 text-xs mt-1">Bootstrap UI</p>
+                        </div>
+                        <div class="component-card p-4 hover:border-blue-500/50 transition-colors">
+                            <i class="fas fa-columns text-2xl text-slate-300 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Nova Admin</p>
+                            <p class="text-slate-500 text-xs mt-1">Dashboard</p>
+                        </div>
+                        <div class="component-card p-4 hover:border-blue-500/50 transition-colors">
+                            <i class="fas fa-envelope-open-text text-2xl text-yellow-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">IMAP Web</p>
+                            <p class="text-slate-500 text-xs mt-1">Email Interface</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Arrow -->
+                <div class="w-full flex justify-center my-2">
+                    <div class="arrow-down"></div>
+                </div>
+                <!-- Layer 2: Application -->
+                <div class="layer-box accent-emerald p-4 flex-[1.2] flex flex-col justify-center relative">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-slate-800 rounded-bl-lg border-b border-l border-slate-700 text-xs text-emerald-400 font-mono font-bold">APPLICATION LAYER (LARAVEL 10)</div>
+                    <div class="grid grid-cols-4 gap-4 mt-2 h-full">
+                        <div class="component-card p-3 border-emerald-500/20 bg-emerald-500/5">
+                            <i class="fas fa-code text-xl text-emerald-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Controllers</p>
+                            <p class="text-slate-500 text-xs">REST API</p>
+                        </div>
+                        <div class="component-card p-3 border-emerald-500/20 bg-emerald-500/5">
+                            <i class="fas fa-cogs text-xl text-emerald-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Jobs</p>
+                            <p class="text-slate-500 text-xs">Queued Ops</p>
+                        </div>
+                        <div class="component-card p-3 border-emerald-500/20 bg-emerald-500/5">
+                            <i class="fas fa-bolt text-xl text-emerald-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Events</p>
+                            <p class="text-slate-500 text-xs">Async Logic</p>
+                        </div>
+                        <div class="component-card p-3 border-emerald-500/20 bg-emerald-500/5">
+                            <i class="fas fa-cube text-xl text-emerald-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Models</p>
+                            <p class="text-slate-500 text-xs">Eloquent ORM</p>
+                        </div>
+                    </div>
+                    <!-- Logic Flow Indicators -->
+                    <div class="flex justify-between px-8 mt-3 text-xs text-slate-500 font-mono border-t border-slate-700/50 pt-2">
+                        <span class="text-white">Imports (Excel)</span>
+                        <span class="text-white">← Business Logic →</span>
+                        <span class="text-white">Exports (PDF)</span>
+                    </div>
+                </div>
+                <!-- Arrow -->
+                <div class="w-full flex justify-center my-2">
+                    <div class="arrow-down"></div>
+                </div>
+                <!-- Layer 3: Data -->
+                <div class="layer-box accent-purple p-4 flex-1 flex flex-col justify-center relative">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-slate-800 rounded-bl-lg border-b border-l border-slate-700 text-xs text-purple-400 font-mono font-bold">DATA &amp; INFRASTRUCTURE</div>
+                    <div class="grid grid-cols-3 gap-4 mt-2 h-full">
+                        <div class="component-card p-4 hover:border-purple-500/50 transition-colors">
+                            <i class="fas fa-database text-2xl text-blue-300 mb-2"></i>
+                            <p class="text-white font-bold text-sm">MySQL</p>
+                            <p class="text-slate-500 text-xs mt-1">Primary DB</p>
+                        </div>
+                        <div class="component-card p-4 hover:border-purple-500/50 transition-colors">
+                            <i class="fas fa-memory text-2xl text-red-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">Redis</p>
+                            <p class="text-slate-500 text-xs mt-1">Cache &amp; Queue</p>
+                        </div>
+                        <div class="component-card p-4 hover:border-purple-500/50 transition-colors">
+                            <i class="fas fa-search text-2xl text-pink-400 mb-2"></i>
+                            <p class="text-white font-bold text-sm">MeiliSearch</p>
+                            <p class="text-slate-500 text-xs mt-1">Full-Text Engine</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Details (35%) -->
+            <div class="w-1/3 flex flex-col gap-6 py-2">
+                <!-- Key Decisions Panel -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex-1">
+                    <h3 class="text-slate-300 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">
+                        <i class="fas fa-chess-knight text-blue-400 mr-2"></i>Key Decisions
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-emerald-500 mt-1 text-sm"></i>
+                            <div>
+                                <p class="text-white text-sm font-medium">Queue-Heavy Design</p>
+                                <p class="text-slate-400 text-xs">Offloading balance checks &amp; email parsing to Redis queues prevents timeouts.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-emerald-500 mt-1 text-sm"></i>
+                            <div>
+                                <p class="text-white text-sm font-medium">Eager Loading</p>
+                                <p class="text-slate-400 text-xs">Global scopes on models prevent N+1 queries by default.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-emerald-500 mt-1 text-sm"></i>
+                            <div>
+                                <p class="text-white text-sm font-medium">Full Audit Trails</p>
+                                <p class="text-slate-400 text-xs">Model-level 'Auditable' trait for complete compliance history.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-emerald-500 mt-1 text-sm"></i>
+                            <div>
+                                <p class="text-white text-sm font-medium">Localized Validation</p>
+                                <p class="text-slate-400 text-xs">Custom class implementing 12+ Israeli banking algorithms.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Data Flows Panel -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex-1">
+                    <h3 class="text-slate-300 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">
+                        <i class="fas fa-exchange-alt text-purple-400 mr-2"></i>Core Data Flows
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900 p-3 rounded border border-slate-700/50">
+                            <p class="text-xs text-blue-400 font-mono mb-1">SUPPORT FILE CREATION</p>
+                            <p class="text-slate-300 text-xs text-white">Input → Validation → Bank Check → Balance Check Job → Allocation</p>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded border border-slate-700/50">
+                            <p class="text-xs text-blue-400 font-mono mb-1">TRANSACTION PROCESSING</p>
+                            <p class="text-slate-300 text-xs text-white">Create → Budget Check → FX Convert → Audit Log → Reconciliation</p>
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded border border-slate-700/50">
+                            <p class="text-xs text-blue-400 font-mono mb-1">EMAIL INTEGRATION</p>
+                            <p class="text-slate-300 text-xs text-white">IMAP Fetch → Parse → Account Match → Event Trigger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: Hero Code Features (from 5.html) -->
+    <div class="min-h-screen flex flex-col z-10" style="background-color: rgb(15, 23, 42); color: #ffffff">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
+        <!-- Header -->
+        <header class="z-10 px-16 pt-12 pb-6 flex justify-between items-end border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="px-2 py-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-bold uppercase tracking-widest">Implementation Details</span>
+                    <span class="text-slate-500 font-mono text-xs uppercase tracking-widest text-white">Backend Logic</span>
+                </div>
+                <h1 class="text-4xl font-bold text-white font-grotesk tracking-tight">Hero Code Features</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-slate-400">
+                <i class="fas fa-code text-indigo-500"></i>
+                <p class="text-sm font-medium text-white">Core Algorithms &amp; Jobs</p>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 z-10 px-16 py-10">
+            <div class="grid grid-cols-3 gap-8 h-full">
+                <!-- Feature 1: BankAccountCheck -->
+                <div class="feature-card theme-blue p-6">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">app/BankAccountCheck.php</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-grotesk">Israeli Banking Algorithm</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Encapsulates 12+ bank-specific checksum algorithms with branch rules. Replaces manual validation with strict O(n) algorithmic verification.
+                    </p>
+                    <div class="mb-4">
+                        <div class="impact-badge">
+                            <i class="fas fa-arrow-down mr-2"></i>
+                            Rejections &lt; 1%
+                        </div>
+                        <div class="impact-badge ml-2">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            Fraud Prevention
+                        </div>
+                    </div>
+                    <div class="code-window">
+                        <p><span class="syntax-keyword">public function</span> <span class="syntax-func">check</span>() {</p>
+                        <p>  <span class="syntax-keyword">switch</span> (<span class="syntax-var">$this</span>-&gt;bank) {</p>
+                        <p>    <span class="syntax-keyword">case</span> 10: <span class="syntax-comment">// Leumi</span></p>
+                        <p>      <span class="syntax-var">$result</span> = <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">calcWeightedSum</span>();</p>
+                        <p>      <span class="syntax-keyword">return</span> in_array(<span class="syntax-var">$result</span>, [90, 72]);</p>
+                        <p>    <span class="syntax-keyword">case</span> 12: <span class="syntax-comment">// Hapoalim</span></p>
+                        <p>      <span class="syntax-keyword">return</span> <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">moduloEleven</span>();</p>
+                        <p>  }</p>
+                        <p>}</p>
+                    </div>
+                </div>
+                <!-- Feature 2: CheckCantExceed -->
+                <div class="feature-card theme-emerald p-6">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-scale-balanced"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">app/Jobs/CheckCantExceed.php</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-grotesk">Multi-Currency Guard</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Queue-based job performing currency arbitrage. Validates donor balances across USD/EUR/ILS using daily FX rates before approval.
+                    </p>
+                    <div class="mb-4">
+                        <div class="impact-badge">
+                            <i class="fas fa-check mr-2"></i>
+                            -40% Rejections
+                        </div>
+                        <div class="impact-badge ml-2">
+                            <i class="fas fa-globe mr-2"></i>
+                            Auto-Arbitrage
+                        </div>
+                    </div>
+                    <div class="code-window">
+                        <p><span class="syntax-keyword">public function</span> <span class="syntax-func">handle</span>() {</p>
+                        <p>  <span class="syntax-var">$rates</span> = Rate::<span class="syntax-func">today</span>()-&gt;get();</p>
+                        <p>  <span class="syntax-keyword">foreach</span> (<span class="syntax-var">$currencies</span> <span class="syntax-keyword">as</span> <span class="syntax-var">$c</span>) {</p>
+                        <p>    <span class="syntax-var">$funds</span> = <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">convert</span>(<span class="syntax-var">$c</span>-&gt;balance);</p>
+                        <p>    <span class="syntax-keyword">if</span> (<span class="syntax-var">$funds</span> &gt; <span class="syntax-var">$req</span>) {</p>
+                        <p>      <span class="syntax-keyword">return</span> <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">approve</span>(<span class="syntax-var">$c</span>);</p>
+                        <p>    }</p>
+                        <p>  }</p>
+                        <p>  Mail::<span class="syntax-func">to</span>(<span class="syntax-var">$admin</span>)-&gt;<span class="syntax-func">send</span>(<span class="syntax-keyword">new</span> Alert());</p>
+                        <p>}</p>
+                    </div>
+                </div>
+                <!-- Feature 3: SupportFilesImport -->
+                <div class="feature-card theme-purple p-6">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-file-csv"></i>
+                        </div>
+                        <span class="text-xs font-mono text-slate-500">app/Imports/SupportFilesImport.php</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 font-grotesk">Bulk Logic Processing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        High-performance Excel import that creates accounts, validates IDs, and maps allocations. Optimized by disabling search sync during ingestion.
+                    </p>
+                    <div class="mb-4">
+                        <div class="impact-badge">
+                            <i class="fas fa-bolt mr-2"></i>
+                            500+ Rows / 2min
+                        </div>
+                        <div class="impact-badge ml-2">
+                            <i class="fas fa-hand-pointer mr-2"></i>
+                            -90% Manual Entry
+                        </div>
+                    </div>
+                    <div class="code-window">
+                        <p><span class="syntax-keyword">public function</span> <span class="syntax-func">collection</span>(<span class="syntax-var">$rows</span>) {</p>
+                        <p>  Account::<span class="syntax-func">withoutSyncingToSearch</span>(<span class="syntax-keyword">function</span>() {</p>
+                        <p>    <span class="syntax-keyword">foreach</span> (<span class="syntax-var">$rows</span> <span class="syntax-keyword">as</span> <span class="syntax-var">$row</span>) {</p>
+                        <p>      <span class="syntax-keyword">try</span> {</p>
+                        <p>        <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">validateRow</span>(<span class="syntax-var">$row</span>);</p>
+                        <p>        <span class="syntax-var">$this</span>-&gt;<span class="syntax-func">createSupportFile</span>(<span class="syntax-var">$row</span>);</p>
+                        <p>      } <span class="syntax-keyword">catch</span> (Exception <span class="syntax-var">$e</span>) {</p>
+                        <p>        <span class="syntax-var">$this</span>->failures[] = <span class="syntax-var">$e</span>;</p>
+                        <p>      }</p>
+                        <p>    }</p>
+                        <p>  });</p>
+                        <p>}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6: Future Roadmap (from 6.html) -->
+    <div class="min-h-screen flex flex-col z-10" style="background-color: rgb(15, 23, 42); color: #ffffff">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-grid z-0 pointer-events-none"></div>
+        <!-- Header -->
+        <header class="z-10 px-16 pt-12 pb-8 flex justify-between items-end border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="px-2 py-1 rounded bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-mono font-bold uppercase tracking-widest">Future Outlook</span>
+                    <span class="text-slate-500 font-mono text-xs uppercase tracking-widest text-white">Next Generation Features</span>
+                </div>
+                <h1 class="text-4xl font-bold text-white font-grotesk tracking-tight">Technical Roadmap</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-slate-400">
+                <i class="fas fa-route text-teal-500"></i>
+                <p class="text-sm font-medium text-white">Strategic Evolution Plan</p>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 z-10 px-16 py-12 relative">
+            <!-- Timeline Track (Background Line) -->
+            <div class="absolute top-[108px] left-[120px] right-[120px] h-0.5 bg-slate-700 z-0">
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-slate-500 rounded-full"></div>
+                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-slate-500 rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-8 h-full">
+                <!-- Pillar 1: AI Powered -->
+                <div class="roadmap-card theme-ai">
+                    <div class="phase-badge text-purple-400 border-purple-500/30">PHASE 1</div>
+                    <div class="icon-box-roadmap">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-grotesk">AI Recommendation Engine</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                        Transitioning from manual support file creation to predictive allocation. Machine learning models will analyze donor history and recipient needs to suggest optimal matches.
+                    </p>
+                    <div class="mb-6 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Target Impact</p>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-purple-400 font-mono">+30%</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Retention</p>
+                            </div>
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-purple-400 font-mono">-25%</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Manual Work</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-700 pt-4">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 text-white">Tech Stack</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill-roadmap">Python</span>
+                            <span class="tech-pill-roadmap">Scikit-learn</span>
+                            <span class="tech-pill-roadmap">Laravel API</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pillar 2: Real-Time Dashboard -->
+                <div class="roadmap-card theme-realtime">
+                    <div class="phase-badge text-sky-400 border-sky-500/30">PHASE 2</div>
+                    <div class="icon-box-roadmap">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-grotesk">Real-Time Financials</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                        Moving beyond static reports to a live operations center. WebSocket integration provides millisecond-latency updates on cash flow, burn rate, and anomaly detection.
+                    </p>
+                    <div class="mb-6 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Target Impact</p>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-sky-400 font-mono">Live</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Visibility</p>
+                            </div>
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-sky-400 font-mono">Auto</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Risk Alert</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-700 pt-4">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 text-white">Tech Stack</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill-roadmap">WebSockets</span>
+                            <span class="tech-pill-roadmap">Pusher</span>
+                            <span class="tech-pill-roadmap">InfluxDB</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pillar 3: Blockchain Audit -->
+                <div class="roadmap-card theme-chain">
+                    <div class="phase-badge text-emerald-400 border-emerald-500/30">PHASE 3</div>
+                    <div class="icon-box-roadmap">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2 font-grotesk">Immutable Audit Trail</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                        The ultimate compliance standard. Hashing transactions to a private blockchain ensures data cannot be tampered with, automating regulatory trust.
+                    </p>
+                    <div class="mb-6 space-y-3">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-white">Target Impact</p>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-emerald-400 font-mono">100%</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Integrity</p>
+                            </div>
+                            <div class="bg-slate-900 rounded p-2 border border-slate-700 flex-1 text-center">
+                                <p class="text-lg font-bold text-emerald-400 font-mono">Zero</p>
+                                <p class="text-[10px] text-slate-500 uppercase text-white">Tampering</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-700 pt-4">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 text-white">Tech Stack</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill-roadmap">Ethereum</span>
+                            <span class="tech-pill-roadmap">Smart Contracts</span>
+                            <span class="tech-pill-roadmap">Web3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body></html>

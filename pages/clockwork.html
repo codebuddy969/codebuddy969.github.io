@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Slide 1 specific styles */
+        .slide-1-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: radial-gradient(circle at 70% 30%, #007d88 0%, #006D77 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .slide-1-container .title-glow {
+            text-shadow: 0 0 30px rgba(226, 149, 120, 0.2);
+        }
+
+        .slide-1-container .kerning-widest {
+            letter-spacing: 0.5em;
+        }
+
+        /* Slide 2 specific styles */
+        .slide-2-container {
+            width: 100%;
+            height: 100vh;
+            padding: 40px 60px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            color: #2D3748;
+            background-color: #EDF6F9;
+        }
+
+        .slide-2-container .text-primary { color: #006D77; }
+        .slide-2-container .text-accent { color: #E29578; }
+        .slide-2-container .bg-primary { background-color: #006D77; }
+        .slide-2-container .bg-secondary { background-color: #83C5BE; }
+        .slide-2-container .border-accent { border-color: #E29578; }
+        .slide-2-container .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            height: 100%;
+        }
+
+        /* Slide 3 specific styles */
+        .slide-3-container {
+            width: 100%;
+            height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .slide-3-container .primary-teal { color: #006D77; }
+        .slide-3-container .bg-primary-teal { background-color: #006D77; }
+        .slide-3-container .accent-sand { color: #E29578; }
+        .slide-3-container .bg-accent-sand { background-color: #E29578; }
+        .slide-3-container .secondary-cyan { color: #83C5BE; }
+        .slide-3-container .bg-secondary-cyan { background-color: #83C5BE; }
+
+        .slide-3-container .feature-card {
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .slide-3-container .feature-card:hover {
+            border-color: #006D77;
+            background-color: #F0F9FA;
+        }
+
+        /* Slide 4 specific styles */
+        .slide-4-container {
+            width: 100%;
+            height: 100vh;
+            padding: 60px 80px;
+            box-sizing: border-box;
+            background: #EDF6F9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-4-container .layer-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-left: 6px solid #006D77;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .slide-4-container .layer-title {
+            color: #006D77;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-4-container .layer-content {
+            color: #4A5568;
+            font-size: 0.95rem;
+        }
+
+        .slide-4-container .tech-pill {
+            background: #83C5BE;
+            color: #006D77;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* Slide 5 specific styles */
+        .slide-5-container {
+            width: 100%;
+            height: 100vh;
+            padding: 60px 80px;
+            box-sizing: border-box;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-5-container .primary-teal { color: #006D77; }
+        .slide-5-container .bg-primary-teal { background-color: #006D77; }
+        .slide-5-container .accent-sand { color: #E29578; }
+        .slide-5-container .bg-accent-sand { background-color: #E29578; }
+        .slide-5-container .border-accent { border-color: #E29578; }
+
+        .slide-5-container .flow-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .slide-5-container .tag-pill {
+            background-color: #83C5BE;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Slide 6 specific styles */
+        .slide-6-container {
+            width: 100%;
+            height: 100vh;
+            background-color: #FFFFFF;
+            padding: 60px 80px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-6-container .tech-card {
+            background: #F8FAFC;
+            border-top: 4px solid #006D77;
+            padding: 24px;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .slide-6-container .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #E29578;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 24px;
+        }
+
+        .slide-6-container .text-primary { color: #006D77; }
+        .slide-6-container .text-accent { color: #E29578; }
+        .slide-6-container .bg-primary { background-color: #006D77; }
+
+        /* Slide 7 specific styles */
+        .slide-7-container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            box-sizing: border-box;
+        }
+
+        .slide-7-container .primary-teal { color: #006D77; }
+        .slide-7-container .bg-primary-teal { background-color: #006D77; }
+        .slide-7-container .accent-sand { color: #E29578; }
+        .slide-7-container .bg-accent-sand { background-color: #E29578; }
+        .slide-7-container .secondary-cyan { color: #83C5BE; }
+
+        .slide-7-container .card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        /* Slide 8 specific styles */
+        .slide-8-container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 70px;
+            box-sizing: border-box;
+        }
+
+        .slide-8-container .primary-teal { color: #006D77; }
+        .slide-8-container .bg-primary-teal { background-color: #006D77; }
+        .slide-8-container .accent-sand { color: #E29578; }
+        .slide-8-container .secondary-cyan { color: #83C5BE; }
+
+        .slide-8-container .impact-card {
+            border-left: 4px solid #E29578;
+            background: #fdfdfd;
+        }
+
+        /* Slide 9 specific styles */
+        .slide-9-container {
+            width: 100%;
+            height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .slide-9-container .primary-teal { color: #006D77; }
+        .slide-9-container .accent-sand { color: #E29578; }
+        .slide-9-container .bg-teal { background-color: #006D77; }
+
+        .slide-9-container .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .slide-9-container .stat-highlight {
+            border-left: 4px solid #E29578;
+        }
+
+        /* Slide 10 specific styles */
+        .slide-10-container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            box-sizing: border-box;
+        }
+
+        .slide-10-container .primary-teal { color: #006D77; }
+        .slide-10-container .bg-primary-teal { background-color: #006D77; }
+        .slide-10-container .accent-sand { color: #E29578; }
+        .slide-10-container .bg-accent-sand { background-color: #E29578; }
+        .slide-10-container .light-cyan { color: #83C5BE; }
+
+        .slide-10-container .roadmap-card {
+            border-top: 5px solid #006D77;
+            background: #fdfdfd;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1 -->
+    <div class="slide-1-container">
+        <!-- Top Section: Project Identifier -->
+        <div class="flex justify-between items-start">
+            <div class="space-y-1">
+                <p class="text-[#83C5BE] uppercase tracking-[0.3em] text-sm font-bold">
+                    Project Intelligence Report
+                </p>
+                <p class="text-white/60 text-xs tracking-widest uppercase">
+                    Case Study Analysis
+                </p>
+            </div>
+            <div class="text-right">
+            </div>
+        </div>
+        <!-- Middle Section: Hero Title -->
+        <div class="flex flex-col justify-center flex-grow">
+            <h1 class="text-[#E29578] text-[120px] font-black leading-none tracking-tighter title-glow uppercase">
+                Clockwork
+            </h1>
+            <div class="mt-4 max-w-2xl">
+                <h2 class="text-white text-5xl font-light tracking-tight leading-tight">
+                    Enterprise Fund <br/>
+                    <span class="font-bold">Management Platform</span>
+                </h2>
+            </div>
+        </div>
+        <!-- Bottom Section: Value Prop & Branding -->
+        <div class="flex justify-between items-end border-t border-white/10 pt-10">
+            <div class="max-w-lg">
+                <p class="text-[#83C5BE] text-lg font-medium leading-relaxed">
+                    Solving operational paralysis for mid-market private equity and venture capital firms.
+                </p>
+            </div>
+            <div class="text-right space-y-2">
+                <p class="text-white font-bold text-sm uppercase tracking-[0.2em]">
+                    Single Source of Truth
+                </p>
+                <p class="text-white/40 text-xs uppercase kerning-widest">
+                    Fund Admin • Investor Relations • Compliance
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide-2-container">
+        <!-- Header -->
+        <div class="mb-8 border-l-8 border-accent pl-6">
+            <h1 class="text-4xl font-bold text-primary uppercase tracking-tight">The 'Problem First' Philosophy</h1>
+            <p class="text-xl text-gray-600 mt-2">Solving operational paralysis in the $50M - $500M AUM mid-market segment.</p>
+        </div>
+        <!-- Critical Pain Point Context -->
+        <div class="mb-8 bg-white p-6 rounded-xl border border-gray-100 flex items-center shadow-sm">
+            <div class="bg-secondary/20 p-4 rounded-full mr-6">
+                <i class="fas fa-exclamation-triangle text-3xl text-primary"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-primary mb-1">The Critical Pain Point</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Fragmented regulatory landscapes and disconnected workflows force teams into manual reconciliation, 
+                    relying on spreadsheets and email chains for mission-critical capital tracking.
+                </p>
+            </div>
+        </div>
+        <!-- Three Existential Threats Grid -->
+        <div class="grid grid-cols-3 gap-6 flex-grow mb-8">
+            <!-- Threat 1 -->
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-shield-virus text-4xl text-accent mb-4"></i>
+                <h3 class="text-lg font-bold text-primary mb-3">Regulatory Risk</h3>
+                <p class="text-sm text-gray-600">Manual KYC/AML processes expose firms to violations. Penalties range from <span class="font-bold text-accent">$10K to millions</span> per infraction.</p>
+            </div>
+            <!-- Threat 2 -->
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-eye-slash text-4xl text-accent mb-4"></i>
+                <h3 class="text-lg font-bold text-primary mb-3">Visibility Gaps</h3>
+                <p class="text-sm text-gray-600">Lack of real-time visibility into capital commitments and calls leads to <span class="font-bold text-accent">cash flow mismanagement</span> and disputes.</p>
+            </div>
+            <!-- Threat 3 -->
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-clock text-4xl text-accent mb-4"></i>
+                <h3 class="text-lg font-bold text-primary mb-3">Operational Drain</h3>
+                <p class="text-sm text-gray-600">Teams spend <span class="font-bold text-accent">40-60% of their time</span> on data entry instead of strategic deal flow or fund deployment.</p>
+            </div>
+        </div>
+        <!-- Data Visualization Section -->
+        <div class="flex gap-8 h-48">
+            <div class="w-1/2 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h4 class="text-sm font-bold text-gray-500 uppercase mb-2 text-center">Team Time Allocation (Legacy Systems)</h4>
+                <div id="chart-container" style="width: 100%; height: 120px;"></div>
+            </div>
+            <div class="w-1/2 flex flex-col justify-center">
+                <div class="flex items-start mb-4">
+                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                    <p class="text-gray-700 text-sm italic">"The current compliance audit process is reactive, not proactive."</p>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                    <p class="text-gray-700 text-sm italic">"Opportunity cost is measured in missed deal flow and slower deployment."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide-3-container">
+        <!-- Header Section -->
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold primary-teal mb-2 uppercase tracking-tight">Strategic Market Differentiation</h1>
+            <p class="text-xl text-gray-500 font-light">Bridging the gap between Fund Administration and Investor Relations</p>
+        </div>
+        <!-- Main Comparison Banner -->
+        <div class="grid grid-cols-2 gap-8 mb-10">
+            <div class="p-6 bg-gray-100 rounded-lg flex items-center justify-center">
+                <div class="text-center">
+                    <p class="text-gray-400 uppercase tracking-widest text-xs font-bold mb-2">Legacy Approach</p>
+                    <p class="text-xl font-semibold text-gray-600 italic">Generic CRMs &amp; Spreadsheets</p>
+                </div>
+            </div>
+            <div class="p-6 bg-primary-teal rounded-lg flex items-center justify-center shadow-lg">
+                <div class="text-center">
+                    <p class="text-white/60 uppercase tracking-widest text-xs font-bold mb-2">Clockwork Advantage</p>
+                    <p class="text-xl font-semibold text-white">Domain-Specific Workflows</p>
+                </div>
+            </div>
+        </div>
+        <!-- Three Pillars of Differentiation -->
+        <div class="grid grid-cols-3 gap-6 flex-grow">
+            <!-- Pillar 1 -->
+            <div class="feature-card p-8 rounded-xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-primary-teal rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-file-invoice-dollar text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold primary-teal mb-4">Capital Call Automation</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Eliminating manual email chains and fragmented tracking with automated deployment workflows.
+                </p>
+            </div>
+            <!-- Pillar 2 -->
+            <div class="feature-card p-8 rounded-xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-accent-sand rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-sync-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold primary-teal mb-4">QuickBooks Integration</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Real-time financial reporting (Balance Sheets, P&amp;L) directly from fund administration sources.
+                </p>
+            </div>
+            <!-- Pillar 3 -->
+            <div class="feature-card p-8 rounded-xl flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-secondary-cyan rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-shield-halved text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold primary-teal mb-4">Compliance Auditing</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Advanced cross-fund interconnectedness analysis to identify complex regulatory risks.
+                </p>
+            </div>
+        </div>
+        <!-- Impact Bar Chart (Simple ECharts) -->
+        <div class="mt-8 flex items-center gap-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
+            <div class="flex-grow">
+                <div id="impactChart" style="width: 100%; height: 120px;"></div>
+            </div>
+            <div class="w-1/3 border-l border-gray-200 pl-8">
+                <h4 class="text-xs font-bold text-gray-400 uppercase mb-2">Key Outcome</h4>
+                <p class="text-2xl font-bold primary-teal italic">"Single Source of Truth"</p>
+                <p class="text-xs text-gray-500 uppercase mt-1">For all stakeholders</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide-4-container">
+        <!-- Header Section -->
+        <div class="mb-10 flex justify-between items-end">
+            <div>
+                <h1 class="text-4xl font-bold text-[#006D77] mb-2 uppercase tracking-tight">Architectural Blueprint</h1>
+                <p class="text-xl text-[#E29578] font-medium">Modular Monolithic Frontend Architecture</p>
+            </div>
+            <div class="text-right">
+                <span class="text-sm font-bold text-[#006D77]/40 tracking-widest uppercase">Clockwork Intelligence</span>
+            </div>
+        </div>
+        <!-- Architecture Stack Layout -->
+        <div class="grid grid-cols-12 gap-8 flex-grow">
+            <!-- Layers Column -->
+            <div class="col-span-8 flex flex-col justify-between space-y-4">
+                <div class="layer-card flex items-center gap-6">
+                    <div class="w-12 text-center text-2xl text-[#006D77]"><i class="fas fa-desktop"></i></div>
+                    <div class="flex-grow">
+                        <div class="layer-title">Presentation Layer</div>
+                        <div class="layer-content mt-1">
+                            React 18 • Ant Design • Custom Component Library
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-card flex items-center gap-6">
+                    <div class="w-12 text-center text-2xl text-[#006D77]"><i class="fas fa-brain"></i></div>
+                    <div class="flex-grow">
+                        <div class="layer-title">State Management Layer</div>
+                        <div class="layer-content mt-1">
+                            Redux Toolkit • RTK Query • Context API
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-card flex items-center gap-6">
+                    <div class="w-12 text-center text-2xl text-[#006D77]"><i class="fas fa-cogs"></i></div>
+                    <div class="flex-grow">
+                        <div class="layer-title">Business Logic Layer</div>
+                        <div class="layer-content mt-1">
+                            Custom Hooks • Service Modules • Utility Functions
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-card flex items-center gap-6">
+                    <div class="w-12 text-center text-2xl text-[#006D77]"><i class="fas fa-database"></i></div>
+                    <div class="flex-grow">
+                        <div class="layer-title">Data Access Layer</div>
+                        <div class="layer-content mt-1">
+                            RTK Query Endpoints • Axios • Mutex Reauth Middleware
+                        </div>
+                    </div>
+                </div>
+                <div class="layer-card flex items-center gap-6">
+                    <div class="w-12 text-center text-2xl text-[#006D77]"><i class="fas fa-network-wired"></i></div>
+                    <div class="flex-grow">
+                        <div class="layer-title">External Integrations</div>
+                        <div class="layer-content mt-1">
+                            QuickBooks API • Firebase • Socket.IO • REST
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side Commentary Column -->
+            <div class="col-span-4 flex flex-col space-y-6">
+                <div class="p-6 bg-[#006D77] rounded-xl text-white shadow-lg">
+                    <h3 class="text-lg font-bold mb-3 accent-sand uppercase text-[#E29578]">Design Philosophy</h3>
+                    <ul class="space-y-4 text-sm font-light">
+                        <li class="flex gap-3">
+                            <i class="fas fa-check-circle text-[#83C5BE] mt-1"></i>
+                            <span><strong>Separation of Concerns:</strong> Decoupled UI components from complex business logic.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-check-circle text-[#83C5BE] mt-1"></i>
+                            <span><strong>Predictable State:</strong> Centralized data flow using Redux Toolkit for enterprise-wide consistency.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i class="fas fa-check-circle text-[#83C5BE] mt-1"></i>
+                            <span><strong>Type Safety:</strong> End-to-end TypeScript integration across all five architectural tiers.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white rounded-xl border border-gray-200">
+                    <h3 class="text-sm font-bold text-[#006D77] mb-3 uppercase">Core Tech Highlight</h3>
+                    <div class="flex flex-wrap">
+                        <span class="tech-pill">React 18</span>
+                        <span class="tech-pill">TypeScript</span>
+                        <span class="tech-pill">Ant Design</span>
+                        <span class="tech-pill">RTK Query</span>
+                        <span class="tech-pill">SCSS Modules</span>
+                        <span class="tech-pill">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="mt-8 flex justify-between items-center text-[10px] text-gray-400 uppercase tracking-widest">
+            <span>Clockwork: Enterprise Fund Management</span>
+            <span>Architecture v2.4</span>
+        </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide-5-container">
+        <!-- Header Section -->
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold primary-teal mb-2">Robust Data Flow Architecture</h1>
+            <p class="text-xl text-gray-500">Enterprise-grade Security and Consistency in Every Transaction</p>
+        </div>
+        <div class="grid grid-cols-2 gap-12 flex-grow overflow-hidden">
+            <!-- Left Column: Authentication Strategy -->
+            <div class="flex flex-col">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-shield-halved text-2xl accent-sand"></i>
+                    <h2 class="text-2xl font-semibold primary-teal">Advanced Auth &amp; Security</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="flow-card">
+                        <h3 class="font-bold text-gray-800 mb-2">Mutex-Based Token Refresh</h3>
+                        <p class="text-sm leading-relaxed text-gray-600">
+                            The <span class="font-mono text-xs bg-gray-200 px-1 rounded">baseQueryWithReauth</span> middleware implements an asynchronous lock (mutex) to prevent race conditions during simultaneous 401/403 errors.
+                        </p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex items-center gap-4 bg-white p-3 rounded border-l-4 border-accent shadow-sm">
+                            <span class="text-xs font-bold bg-primary-teal text-white w-6 h-6 flex items-center justify-center rounded-full">1</span>
+                            <span class="text-sm font-medium">Wait for Mutex Unlock</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-3 rounded border-l-4 border-accent shadow-sm">
+                            <span class="text-xs font-bold bg-primary-teal text-white w-6 h-6 flex items-center justify-center rounded-full">2</span>
+                            <span class="text-sm font-medium">Single Refresh Request</span>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white p-3 rounded border-l-4 border-accent shadow-sm">
+                            <span class="text-xs font-bold bg-primary-teal text-white w-6 h-6 flex items-center justify-center rounded-full">3</span>
+                            <span class="text-sm font-medium">Automatic Retry with New Token</span>
+                        </div>
+                    </div>
+                    <p class="text-sm italic text-gray-400 mt-4">
+                        *Impact: 95% reduction in authentication-related session drops.
+                    </p>
+                </div>
+            </div>
+            <!-- Right Column: Cache Management -->
+            <div class="flex flex-col">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-database text-2xl accent-sand"></i>
+                    <h2 class="text-2xl font-semibold primary-teal">Intelligent Cache Management</h2>
+                </div>
+                <div class="flow-card mb-6">
+                    <h3 class="font-bold text-gray-800 mb-2">Tag-Based Invalidation System</h3>
+                    <p class="text-sm leading-relaxed text-gray-600">
+                        Leveraging RTK Query&#39;s automated cache management with <strong>35+ specialized entity tags</strong> to ensure a single source of truth across all modules.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-dashed border-gray-300">
+                    <p class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-4">Sample Entity Tags</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag-pill">FUNDS</span>
+                        <span class="tag-pill">INVESTORS</span>
+                        <span class="tag-pill">COMPANIES</span>
+                        <span class="tag-pill">ATTRIBUTES</span>
+                        <span class="tag-pill">EMPLOYEES</span>
+                        <span class="tag-pill">COMPLIANCE</span>
+                        <span class="tag-pill">DOCUMENTS</span>
+                        <span class="tag-pill">TRANSACTIONS</span>
+                        <span class="tag-pill">REPORTS</span>
+                        <span class="tag-pill">...and 26+ more</span>
+                    </div>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-rotate text-accent-sand"></i>
+                        <span class="text-xs font-semibold text-gray-500">Auto Re-fetch on Mutation</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-bolt text-accent-sand"></i>
+                        <span class="text-xs font-semibold text-gray-500">Optimistic UI Updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Note -->
+        <div class="mt-auto border-t border-gray-100 pt-6 flex justify-between items-center text-xs text-gray-400 uppercase tracking-widest">
+            <span>Clockwork Architectural Review</span>
+            <span class="accent-sand font-bold">Data Consistency Layer</span>
+        </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide-6-container">
+        <!-- Header Section -->
+        <div class="mb-12">
+            <h1 class="text-[#006D77] text-4xl font-bold tracking-tight mb-2">Technology Stack Rationale</h1>
+            <p class="text-gray-500 text-xl font-light">Purpose-built architecture for alternative investment sector.</p>
+        </div>
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-2 gap-8 flex-grow">
+            <!-- React &amp; TypeScript -->
+            <div class="tech-card shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="icon-box"><i class="fab fa-react"></i></div>
+                    <h3 class="text-xl font-bold text-primary">React 18 + TypeScript</h3>
+                </div>
+                <ul class="text-gray-600 space-y-2 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Ecosystem Maturity:</strong> Battle-tested libraries for complex enterprise data grids.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>IDE Support:</strong> Superior TypeScript integration reduces runtime errors.</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- RTK Query -->
+            <div class="tech-card shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="icon-box"><i class="fas fa-database"></i></div>
+                    <h3 class="text-xl font-bold text-primary">RTK Query</h3>
+                </div>
+                <ul class="text-gray-600 space-y-2 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Integrated State:</strong> Removes need for secondary data-fetching libraries like SWR.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Auto-Generation:</strong> Code-gen friendly structure for OpenAPI/TypeScript sync.</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Ant Design -->
+            <div class="tech-card shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="icon-box"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="text-xl font-bold text-primary">Ant Design</h3>
+                </div>
+                <ul class="text-gray-600 space-y-2 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Enterprise Features:</strong> Virtual scrolling and TreeSelect handle $500M+ AUM datasets.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>i18n Support:</strong> Native 50+ language packs for global fund managers.</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Performance &amp; Real-time -->
+            <div class="tech-card shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-bold text-primary">SCSS &amp; Firebase</h3>
+                </div>
+                <ul class="text-gray-600 space-y-2 text-sm">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Build Efficiency:</strong> SCSS Modules compile at build-time, reducing runtime overhead.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check text-accent mt-1"></i>
+                        <span><strong>Real-time Infrastructure:</strong> Cloud Messaging for immediate compliance alerts.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Footer Note -->
+        <div class="mt-10 flex items-center justify-between border-t pt-6">
+            <div class="flex gap-4">
+                <span class="px-3 py-1 bg-[#EDF6F9] text-[#006D77] rounded text-xs font-bold uppercase tracking-wider">Modular Monolith</span>
+                <span class="px-3 py-1 bg-[#EDF6F9] text-[#006D77] rounded text-xs font-bold uppercase tracking-wider">Type Safe</span>
+            </div>
+            <p class="text-gray-400 text-xs">Clockwork Technical Blueprint • Page 6</p>
+        </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide-7-container">
+        <!-- Header -->
+        <div class="mb-10">
+            <h1 class="text-4xl font-black primary-teal mb-2 uppercase tracking-tight">Innovative Technical Solutions</h1>
+            <p class="text-xl text-gray-500 font-light">Transforming Enterprise Productivity Through Advanced Grid Engineering</p>
+        </div>
+        <!-- Main Grid -->
+        <div class="grid grid-cols-12 gap-8 flex-grow">
+            <!-- Left Side: Feature Detail -->
+            <div class="col-span-7 space-y-6">
+                <!-- Solution 1 -->
+                <div class="card border-l-4 border-[#006D77] shadow-sm">
+                    <div class="flex gap-4">
+                        <div class="bg-teal-100 p-3 rounded-lg h-fit">
+                            <i class="fas fa-table text-xl primary-teal"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold primary-teal mb-1">Dynamic Type-Safe Tables</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                database-driven column configurations supporting 6+ data types (Money, %, Date, etc.) 
+                                with centralized rendering logic. Eliminates entity-specific boilerplate.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Solution 2 -->
+                <div class="card border-l-4 border-[#E29578] shadow-sm">
+                    <div class="flex gap-4">
+                        <div class="bg-orange-100 p-3 rounded-lg h-fit">
+                            <i class="fas fa-paste text-xl accent-sand"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold accent-sand mb-1">Excel-Style Paste Handler</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                Direct clipboard-to-grid integration with TSV parsing and coordinate mapping. 
+                                Intelligent separation of system fields and dynamic attributes for batch processing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature List -->
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        Optimistic Updates
+                    </div>
+                    <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        Batch API Mutations
+                    </div>
+                    <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        Excel-like Productivity
+                    </div>
+                    <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        Type-Safe Sorting
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side: Impact Stats -->
+            <div class="col-span-5 flex flex-col">
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex-grow flex flex-col items-center">
+                    <h4 class="text-center font-bold text-gray-400 uppercase tracking-widest text-xs mb-6">Efficiency Impact Analysis</h4>
+                    <div id="impactChart7" style="width: 100%; height: 280px;"></div>
+                    <div class="mt-8 text-center bg-white p-6 rounded-xl shadow-sm border border-orange-50 w-full">
+                        <span class="text-5xl font-black accent-sand tracking-tighter">80-90%</span>
+                        <p class="text-gray-500 text-sm mt-1 uppercase font-bold">Reduction in Data Entry Time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center text-xs font-bold text-gray-400 uppercase tracking-widest">
+            <span>Clockwork Engineering Report</span>
+            <div class="flex gap-4">
+                <span>React 18</span>
+                <span class="text-gray-300">•</span>
+                <span>Redux Toolkit</span>
+                <span class="text-gray-300">•</span>
+                <span>TypeScript</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide-8-container">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold primary-teal">Engineering Impact &amp; Refactoring</h1>
+            <p class="text-xl text-gray-500 mt-2">Modernizing foundation for enterprise-grade reliability</p>
+        </div>
+        <!-- Top Content: Refactoring &amp; Technical Debt -->
+        <div class="grid grid-cols-2 gap-8 mb-8">
+            <div class="space-y-4">
+                <div class="flex items-start gap-4 p-4 impact-card rounded-r shadow-sm">
+                    <div class="mt-1"><i class="fas fa-microchip primary-teal text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Architectural Modernization</h3>
+                        <p class="text-sm text-gray-600">Migrated to <strong>Functional Hooks</strong> and extracted <strong>2,000+ lines</strong> of redundant logic into reusable table utilities, reducing boilerplate by 40%.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 impact-card rounded-r shadow-sm">
+                    <div class="mt-1"><i class="fas fa-shield-halved primary-teal text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Enhanced Reliability</h3>
+                        <p class="text-sm text-gray-600">Centralized error handling via <strong>rtkQueryErrorLogger</strong> and implemented strict TypeScript interfaces, cutting runtime errors by 60%.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-start gap-4 p-4 impact-card rounded-r shadow-sm">
+                    <div class="mt-1"><i class="fas fa-broom primary-teal text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-bold text-gray-800">Technical Debt Mitigation</h3>
+                        <p class="text-sm text-gray-600">Systematic elimination of <code>any</code> type usage and legacy code patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide-9-container">
+        <!-- Header -->
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold primary-teal mb-2">Strategic Decisions &amp; Edge Cases</h1>
+            <p class="text-xl text-slate-500 font-light italic">Balancing Velocity with Enterprise-Grade Resilience</p>
+        </div>
+        <!-- Top Content Grid -->
+        <div class="grid grid-cols-2 gap-8 mb-8">
+            <!-- Strategic Architecture Decisions -->
+            <div class="flex flex-col gap-4">
+                <h3 class="text-lg font-bold uppercase tracking-widest text-slate-400 mb-2">Architecture Strategy</h3>
+                <div class="card p-5 stat-highlight">
+                    <div class="flex items-center gap-4 mb-2">
+                        <i class="fas fa-code-branch primary-teal text-xl"></i>
+                        <h4 class="font-bold text-slate-800">Parallel Development Strategy</h4>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Selective mock response integration for active endpoints. 
+                        Accelerated initial development velocity by <span class="font-bold accent-sand">40%</span>.
+                    </p>
+                </div>
+                <div class="card p-5">
+                    <div class="flex items-center gap-4 mb-2">
+                        <i class="fas fa-sync primary-teal text-xl"></i>
+                        <h4 class="font-bold text-slate-800">Targeted Data Refresh</h4>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Hybrid strategy utilizing optimistic updates and RTK Query tag-based invalidation to balance consistency and UX.
+                    </p>
+                </div>
+            </div>
+            <!-- Edge Case Handling -->
+            <div class="flex flex-col gap-4">
+                <h3 class="text-lg font-bold uppercase tracking-widest text-slate-400 mb-2">Edge Case Resilience</h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="flex items-center gap-4 p-4 card">
+                        <i class="fas fa-lock accent-sand w-6"></i>
+                        <div class="text-sm">
+                            <span class="font-bold block">Concurrent Token Refresh</span>
+                            <span class="text-slate-500">Mutex pattern prevents race conditions across 5+ simultaneous tabs.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 card">
+                        <i class="fas fa-globe-americas accent-sand w-6"></i>
+                        <div class="text-sm">
+                            <span class="font-bold block">Cross-Timezone Compliance</span>
+                            <span class="text-slate-500">Unified EST/PST date parsing using Dayjs and DatePickerWithMask.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 card">
+                        <i class="fas fa-database accent-sand w-6"></i>
+                        <div class="text-sm">
+                            <span class="font-bold block">Large Scale Performance</span>
+                            <span class="text-slate-500">Virtual scrolling and pagination optimized for 10,000+ investor records.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Data Visualization Section -->
+        <div class="flex-grow grid grid-cols-3 gap-8 items-center border-t border-slate-200 pt-8">
+            <div class="col-span-1">
+                <h4 class="text-md font-bold text-slate-700 mb-2">Development Impact</h4>
+                <p class="text-sm text-slate-500 mb-4">The parallel development strategy significantly reduced backend dependency bottlenecks.</p>
+                <div class="flex flex-col gap-2">
+                    <div class="flex justify-between text-xs font-bold text-slate-400 uppercase">
+                        <span>Velocity Gain</span>
+                        <span class="accent-sand">+40%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-teal h-full" style="width: 40%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-2 flex justify-center">
+                <div id="velocityChart" style="width: 100%; height: 220px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide-10-container">
+        <!-- Header -->
+        <div class="mb-10 flex justify-between items-start">
+            <div>
+                <h1 class="text-4xl font-black primary-teal uppercase tracking-tight mb-2">Future Roadmap &amp; Vision</h1>
+                <p class="text-xl text-gray-500 font-light">Scaling Platform&#39;s Strategic Value to 10x</p>
+            </div>
+            <div class="bg-primary-teal text-white px-4 py-2 rounded text-sm font-bold uppercase tracking-widest">
+                Phase 2.0
+            </div>
+        </div>
+        <!-- Roadmap Grid -->
+        <div class="grid grid-cols-3 gap-8 mb-10">
+            <!-- Feature 1 -->
+            <div class="roadmap-card p-6 flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-robot text-2xl accent-sand"></i>
+                    <h3 class="text-lg font-bold primary-teal">AI Compliance Analysis</h3>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed flex-grow">
+                    Automated risk identification across KYC/AML data and cross-fund relationships to predict regulatory violations.
+                </p>
+                <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs font-semibold accent-sand">
+                    Value: 70% reduction in audit time
+                </div>
+            </div>
+            <!-- Feature 2 -->
+            <div class="roadmap-card p-6 flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-users-gear text-2xl accent-sand"></i>
+                    <h3 class="text-lg font-bold primary-teal">Real-Time Collaboration</h3>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed flex-grow">
+                    WebSocket-powered co-editing for fund documents and checklists with integrated version history and presence indicators.
+                </p>
+                <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs font-semibold accent-sand">
+                    Value: 50% faster review cycles
+                </div>
+            </div>
+            <!-- Feature 3 -->
+            <div class="roadmap-card p-6 flex flex-col h-full">
+                <div class="flex items-center gap-3 mb-4">
+                    <i class="fas fa-chart-line text-2xl accent-sand"></i>
+                    <h3 class="text-lg font-bold primary-teal">Predictive Analytics</h3>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed flex-grow">
+                    Forecasting capital calls and cash flow requirements using historical deployment schedules and market conditions.
+                </p>
+                <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs font-semibold accent-sand">
+                    Value: 30% improved deployment efficiency
+                </div>
+            </div>
+        </div>
+        <!-- Efficiency Projection Chart -->
+        <div class="flex-grow flex flex-col bg-gray-50 rounded-xl p-6 border border-gray-100 items-center">
+            <h3 class="text-sm font-bold primary-teal uppercase tracking-widest mb-4">Projected Efficiency Gains</h3>
+            <div id="efficiencyChart" style="width: 100%; height: 180px;"></div>
+        </div>
+        <!-- Conclusion Footer -->
+        <div class="mt-10 pt-6 border-t border-gray-200 flex justify-between items-center text-gray-400">
+            <div class="text-sm font-bold uppercase tracking-widest primary-teal">Clockwork • The Future of Fund Management</div>
+            <div class="text-xs italic">Data based on internal architectural readiness and historical benchmarks.</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize chart when slide 2 is in view
+        const initChart = () => {
+            const chartDom = document.getElementById('chart-container');
+            if (chartDom && !chartDom.hasChildNodes()) {
+                const myChart = echarts.init(chartDom);
+                const option = {
+                    tooltip: { trigger: 'item' },
+                    grid: { top: 10, bottom: 30, left: 100, right: 40 },
+                    xAxis: {
+                        type: 'value',
+                        max: 100,
+                        splitLine: { show: false },
+                        axisLabel: { formatter: '{value}%' }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['Manual Tasks', 'Strategic Growth'],
+                        axisLine: { show: false },
+                        axisTick: { show: false }
+                    },
+                    series: [{
+                        data: [
+                            {
+                                value: 60,
+                                itemStyle: { color: '#E29578' },
+                                label: { show: true, position: 'right', formatter: 'Up to 60%' }
+                            },
+                            {
+                                value: 40,
+                                itemStyle: { color: '#006D77' },
+                                label: { show: true, position: 'right', formatter: 'Remaining 40%' }
+                            }
+                        ],
+                        type: 'bar',
+                        barWidth: '60%',
+                        showBackground: true,
+                        backgroundStyle: { color: 'rgba(180, 180, 180, 0.1)', borderRadius: 5 },
+                        itemStyle: { borderRadius: 5 }
+                    }]
+                };
+                myChart.setOption(option);
+            }
+        };
+
+        // Initialize chart on load
+        window.addEventListener('load', initChart);
+        
+        // Resize chart on window resize
+        window.addEventListener('resize', () => {
+            const chartDom = document.getElementById('chart-container');
+            if (chartDom && echarts.getInstanceByDom(chartDom)) {
+                echarts.getInstanceByDom(chartDom).resize();
+            }
+            const impactChartDom = document.getElementById('impactChart');
+            if (impactChartDom && echarts.getInstanceByDom(impactChartDom)) {
+                echarts.getInstanceByDom(impactChartDom).resize();
+            }
+        });
+
+        // Initialize impact chart
+        const initImpactChart = () => {
+            const chartDom = document.getElementById('impactChart');
+            if (chartDom && !chartDom.hasChildNodes()) {
+                const myChart = echarts.init(chartDom);
+                const option = {
+                    grid: { top: 10, bottom: 20, left: 100, right: 40 },
+                    xAxis: {
+                        type: 'value',
+                        max: 100,
+                        splitLine: { show: false },
+                        axisLabel: { show: false },
+                        axisLine: { show: false }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['Data Entry Reduction', 'Admin Time Saved'],
+                        axisLine: { show: false },
+                        axisTick: { show: false },
+                        axisLabel: { 
+                            fontSize: 12, 
+                            fontWeight: 'bold', 
+                            color: '#006D77',
+                            margin: 10
+                        }
+                    },
+                    series: [
+                        {
+                            data: [
+                                { value: 85, itemStyle: { color: '#006D77' } },
+                                { value: 90, itemStyle: { color: '#E29578' } }
+                            ],
+                            type: 'bar',
+                            barWidth: '60%',
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{c}%',
+                                fontWeight: 'bold',
+                                color: '#666'
+                            },
+                            itemStyle: {
+                                borderRadius: [0, 5, 5, 0]
+                            }
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        };
+
+        // Initialize impact chart on load
+        window.addEventListener('load', initImpactChart);
+
+        // Initialize slide 7 impact chart
+        const initImpactChart7 = () => {
+            const chartDom = document.getElementById('impactChart7');
+            if (chartDom && !chartDom.hasChildNodes()) {
+                const myChart = echarts.init(chartDom);
+                const option = {
+                    grid: {
+                        top: 20,
+                        bottom: 40,
+                        left: 60,
+                        right: 20
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Manual', 'Clockwork'],
+                        axisLine: { show: false },
+                        axisTick: { show: false },
+                        axisLabel: {
+                            fontSize: 14,
+                            fontWeight: 'bold',
+                            color: '#64748b',
+                            margin: 15
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        show: false,
+                        max: 110
+                    },
+                    series: [
+                        {
+                            data: [
+                                {
+                                    value: 100,
+                                    itemStyle: { color: '#94a3b8' },
+                                    label: {
+                                        show: true,
+                                        position: 'top',
+                                        formatter: '100%',
+                                        fontWeight: 'bold',
+                                        color: '#94a3b8'
+                                    }
+                                },
+                                {
+                                    value: 15,
+                                    itemStyle: { color: '#E29578' },
+                                    label: {
+                                        show: true,
+                                        position: 'top',
+                                        formatter: '15%',
+                                        fontWeight: 'bold',
+                                        color: '#E29578',
+                                        fontSize: 20
+                                    }
+                                }
+                            ],
+                            type: 'bar',
+                            barWidth: '50%',
+                            itemStyle: {
+                                borderRadius: [8, 8, 0, 0]
+                            },
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(180, 180, 180, 0.1)',
+                                borderRadius: 8
+                            }
+                        }
+                    ]
+                };
+
+                myChart.setOption(option);
+            }
+        };
+
+        // Initialize slide 7 chart on load
+        window.addEventListener('load', initImpactChart7);
+
+        // Resize all charts on window resize
+        window.addEventListener('resize', () => {
+            const chartDom = document.getElementById('chart-container');
+            if (chartDom && echarts.getInstanceByDom(chartDom)) {
+                echarts.getInstanceByDom(chartDom).resize();
+            }
+            const impactChartDom = document.getElementById('impactChart');
+            if (impactChartDom && echarts.getInstanceByDom(impactChartDom)) {
+                echarts.getInstanceByDom(impactChartDom).resize();
+            }
+            const impactChart7Dom = document.getElementById('impactChart7');
+            if (impactChart7Dom && echarts.getInstanceByDom(impactChart7Dom)) {
+                echarts.getInstanceByDom(impactChart7Dom).resize();
+            }
+            const velocityChartDom = document.getElementById('velocityChart');
+            if (velocityChartDom && echarts.getInstanceByDom(velocityChartDom)) {
+                echarts.getInstanceByDom(velocityChartDom).resize();
+            }
+        });
+
+        // Initialize velocity chart
+        const initVelocityChart = () => {
+            const chartDom = document.getElementById('velocityChart');
+            if (chartDom && !chartDom.hasChildNodes()) {
+                const myChart = echarts.init(chartDom);
+                const option = {
+                    animation: false,
+                    grid: {
+                        top: '10%',
+                        left: '5%',
+                        right: '5%',
+                        bottom: '15%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Standard Workflow', 'Parallel (Clockwork)'],
+                        axisLine: { lineStyle: { color: '#CBD5E1' } },
+                        axisLabel: { color: '#64748B', fontWeight: 'bold' }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        splitLine: { lineStyle: { type: 'dashed', color: '#E2E8F0' } },
+                        axisLabel: { show: false }
+                    },
+                    series: [{
+                        data: [
+                            {
+                                value: 100,
+                                itemStyle: { color: '#94A3B8' }
+                            },
+                            {
+                                value: 140,
+                                itemStyle: { color: '#006D77' }
+                            }
+                        ],
+                        type: 'bar',
+                        barWidth: '50%',
+                        label: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}%',
+                            fontWeight: 'bold',
+                            color: '#334155'
+                        }
+                    }]
+                };
+                myChart.setOption(option);
+            }
+        };
+
+        // Initialize velocity chart on load
+        window.addEventListener('load', initVelocityChart);
+
+        // Initialize efficiency chart
+        const initEfficiencyChart = () => {
+            const chartDom = document.getElementById('efficiencyChart');
+            if (chartDom && !chartDom.hasChildNodes()) {
+                const myChart = echarts.init(chartDom);
+                const option = {
+                    grid: {
+                        left: '5%',
+                        right: '10%',
+                        bottom: '15%',
+                        top: '10%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        max: 100,
+                        axisLabel: { formatter: '{value}%', color: '#666' },
+                        splitLine: { show: false }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['Capital Efficiency', 'Review Speed', 'Audit Time Savings'],
+                        axisLabel: { color: '#006D77', fontWeight: 'bold' },
+                        axisLine: { show: false },
+                        axisTick: { show: false }
+                    },
+                    series: [
+                        {
+                            name: 'Improvement',
+                            type: 'bar',
+                            data: [
+                                { value: 30, itemStyle: { color: '#83C5BE' } },
+                                { value: 50, itemStyle: { color: '#E29578' } },
+                                { value: 70, itemStyle: { color: '#006D77' } }
+                            ],
+                            barWidth: '60%',
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: '+{c}%',
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                color: '#333'
+                            },
+                            itemStyle: {
+                                borderRadius: [0, 4, 4, 0]
+                            }
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        };
+
+        // Initialize efficiency chart on load
+        window.addEventListener('load', initEfficiencyChart);
+
+        // Resize all charts on window resize
+        window.addEventListener('resize', () => {
+            const chartDom = document.getElementById('chart-container');
+            if (chartDom && echarts.getInstanceByDom(chartDom)) {
+                echarts.getInstanceByDom(chartDom).resize();
+            }
+            const impactChartDom = document.getElementById('impactChart');
+            if (impactChartDom && echarts.getInstanceByDom(impactChartDom)) {
+                echarts.getInstanceByDom(impactChartDom).resize();
+            }
+            const impactChart7Dom = document.getElementById('impactChart7');
+            if (impactChart7Dom && echarts.getInstanceByDom(impactChart7Dom)) {
+                echarts.getInstanceByDom(impactChart7Dom).resize();
+            }
+            const velocityChartDom = document.getElementById('velocityChart');
+            if (velocityChartDom && echarts.getInstanceByDom(velocityChartDom)) {
+                echarts.getInstanceByDom(velocityChartDom).resize();
+            }
+            const efficiencyChartDom = document.getElementById('efficiencyChart');
+            if (efficiencyChartDom && echarts.getInstanceByDom(efficiencyChartDom)) {
+                echarts.getInstanceByDom(efficiencyChartDom).resize();
+            }
+        });
+    </script>
+</body>
+</html>

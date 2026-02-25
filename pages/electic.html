@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700;800&display=swap');
+    
+    html, body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    body {
+        background-color: #F5F5F5;
+        overflow-y: auto;
+    }
+    
+    .slide-section {
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .text-accent { color: #00796B; }
+    .text-highlight { color: #FF5722; }
+    .bg-primary { background-color: #1A237E; }
+    
+    .card {
+        background: white;
+        border-left: 4px solid #00796B;
+        transition: transform 0.3s ease;
+    }
+    
+    .feature-card {
+        background: white;
+        border-left: 6px solid #00796B;
+        padding: 24px;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .icon-box {
+        color: #1A237E;
+        font-size: 28px;
+    }
+    
+    .layer-box {
+        border-left: 4px solid #00796B;
+        background: white;
+        padding: 12px 20px;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .tech-pill {
+        background: #E3F2FD;
+        color: #1A237E;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    .flow-step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        background: white;
+        border: 1px solid #E5E7EB;
+        border-radius: 0.375rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #1A237E;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .flow-arrow {
+        color: #00796B;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+    }
+    
+    .section-header {
+        border-left: 4px solid #FF5722;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .code-block {
+        font-family: 'Fira Code', monospace;
+        background-color: #1E1E1E;
+        color: #D4D4D4;
+    }
+    
+    .header-gradient {
+        background: linear-gradient(90deg, #1A237E 0%, #00796B 100%);
+    }
+    
+    .logic-card {
+        background: #E3F2FD;
+        border-left: 4px solid #1A237E;
+    }
+    
+    .stat-highlight {
+        color: #FF5722;
+    }
+    
+    .roadmap-card {
+        background: white;
+        border-bottom: 4px solid #00796B;
+        transition: transform 0.2s;
+    }
+    
+    .roadmap-card:hover { opacity: 0.9; }
+    
+    .highlight-text { color: #FF5722; }
+    
+    .slide-container {
+        width: 1600px;
+        margin: 0 auto;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+</style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.bottom-0{bottom:0px}.left-0{left:0px}.z-10{z-index:10}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-20{margin-left:5rem}.mt-12{margin-top:3rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.h-20{height:5rem}.h-44{height:11rem}.h-full{height:100%}.w-2{width:0.5rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.rounded-full{border-radius:9999px}.rounded-sm{border-radius:0.125rem}.border-l-4{border-left-width:4px}.border-t{border-top-width:1px}.border-\[\#FF5722\]{--tw-border-opacity:1;border-color:rgb(255 87 34 / var(--tw-border-opacity, 1))}.border-slate-200{border-color:rgb(226 232 240)}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.bg-\[\#00796B\]{--tw-bg-opacity:1;background-color:rgb(0 121 107 / var(--tw-bg-opacity, 1))}.bg-\[\#F5F5F5\]{--tw-bg-opacity:1;background-color:rgb(245 245 245 / var(--tw-bg-opacity, 1))}.bg-\[\#FF5722\]{--tw-bg-opacity:1;background-color:rgb(255 87 34 / var(--tw-bg-opacity, 1))}.bg-black\/30{background-color:rgb(0 0 0 / 0.3)}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-\[\#1A237E\]\/95{--tw-gradient-from:rgb(26 35 126 / 0.95) var(--tw-gradient-from-position);--tw-gradient-to:rgb(26 35 126 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-\[\#1A237E\]\/70{--tw-gradient-to:rgb(26 35 126 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(26 35 126 / 0.7) var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-6{padding:1.5rem}.px-20{padding-left:5rem;padding-right:5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.pl-6{padding-left:1.5rem}.pt-8{padding-top:2rem}.pb-1{padding-bottom:0.25rem}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-7xl{font-size:4.5rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[12px\]{font-size:12px}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-light{font-weight:300}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-\[\#00796B\]{--tw-text-opacity:1;color:rgb(0 121 107 / var(--tw-text-opacity, 1))}.text-gray-200{--tw-text-opacity:1;color:rgb(229 231 235 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-teal-100{--tw-text-opacity:1;color:rgb(204 251 241 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.space-x-2>:not([hidden])~:not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.flex-end{align-items:flex-end}.flex-grow{flex-grow:1}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.mr-4{margin-right:1rem}.col-span-1{grid-column:span 1 / span 1}.col-span-2{grid-column:span 2 / span 2}</style>
+<style>
+    /* Increase small font sizes for better readability */
+    .text-xs {
+        font-size: 0.875rem !important;
+        line-height: 1.4;
+    }
+    
+    /* Increase paragraph text size */
+    p.text-sm {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    p.text-xs {
+        font-size: 0.85rem !important;
+        line-height: 1.5;
+    }
+    
+    /* Increase list item text size */
+    li span {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    /* Increase small text in cards */
+    .card p, .feature-card p, .security-card p {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    /* Increase small text in layer boxes */
+    .layer-box .text-xs {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Increase text in code blocks */
+    .code-block p {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    /* Increase text in trade-off items */
+    .trade-off-item p {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+    
+    /* Increase text in logic cards */
+    .logic-card span {
+        font-size: 0.95rem !important;
+    }
+</style>
+</head>
+<body class="bg-[#F5F5F5]">
+
+<!-- PAGE 1 SECTION -->
+<div class="slide-section relative w-full h-full flex items-center">
+<!-- Background Image -->
+<div class="absolute inset-0">
+<img alt="Background" class="w-full h-full object-cover" src="https://picture-search.skywork.ai/aippt/image/sheet/f20881145fa5a0d01823c7f4c8f49bd0_zimage.jpg"/>
+<!-- Dark Gradient Overlay for Text Readability -->
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A237E]/95 via-[#1A237E]/70 to-transparent"></div>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 ml-20 max-w-2xl text-white" style="width: 672px; height: unset;">
+<!-- Accent Label -->
+<div class="inline-block px-3 py-1 bg-[#FF5722] text-[12px] font-bold tracking-widest uppercase mb-6 rounded-sm">
+                Full-Stack Voting Management
+            </div>
+<!-- Main Title -->
+<h1 class="text-7xl font-extrabold leading-tight tracking-tight">
+                ELECTIC
+            </h1>
+<h2 class="text-4xl font-bold text-[#00796B] mt-2 leading-snug">
+                Revolutionizing Electoral Management
+            </h2>
+<!-- Subtitle/Description -->
+<div class="mt-8 border-l-4 border-[#FF5722] pl-6 py-2">
+<p class="text-xl text-gray-200 leading-relaxed italic" style="width: 644px; height: unset;">
+                    Unifying fragmented data into a real-time command center for Israeli political campaigns.
+                </p>
+</div>
+<!-- Key Features List (Horizontal) -->
+<div class="flex gap-6 mt-12 text-sm font-semibold text-teal-100 uppercase tracking-wider" style="width: 594px; height: 20px;">
+<div class="flex items-center gap-2" style="width: 201.391px; height: unset;">
+<span class="w-2 h-2 bg-[#00796B] rounded-full"></span>
+                    Real-Time Monitoring
+                </div>
+<div class="flex items-center gap-2" style="width: 145.094px; height: unset;">
+<span class="w-2 h-2 bg-[#00796B] rounded-full"></span>
+                    Telemarketing
+                </div>
+<div class="flex items-center gap-2" style="width: 199.531px; height: unset;">
+<span class="w-2 h-2 bg-[#00796B] rounded-full"></span>
+                    Mass Communication
+                </div>
+</div>
+</div>
+<!-- Footer Info Bar -->
+<div class="absolute bottom-0 left-0 w-full h-20 bg-black/30 backdrop-blur-md flex items-center justify-between px-20 border-t border-white/10">
+<div class="text-gray-400 text-sm">
+<span class="text-white font-bold uppercase tracking-widest">Tech Stack:</span> Laravel 10 • Vue.js 2 • MySQL • Redis
+            </div>
+<div class="text-right" style="width: 232.422px; height: 35px;">
+<p class="text-[#00796B] text-[10px] font-bold uppercase tracking-widest" style="width: 232.422px; height: unset;">Technical Presentation</p>
+</div>
+</div>
+</div>
+
+<!-- PAGE 2 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #1A237E;">
+<div class="slide-container">
+<!-- Header Section -->
+<div class="mb-12">
+<h1 class="text-5xl font-bold mb-4">The 'Problem First' Philosophy</h1>
+<p class="text-2xl text-slate-600 font-light">Addressing core pain points to transform political campaign management.</p>
+</div>
+<!-- Main Pillars Grid -->
+<div class="grid grid-cols-2 gap-8 mb-10">
+<!-- Data Fragmentation -->
+<div class="card p-6 shadow-sm">
+<div class="flex items-center mb-3">
+<i class="fas fa-database text-3xl text-accent mr-4"></i>
+<h3 class="text-xl font-bold">Data Fragmentation</h3>
+</div>
+<p class="text-slate-700 leading-relaxed">
+<span class="font-semibold">The Pain:</span> Voter data siloed across spreadsheets, CRM systems, and field operations.
+                    <br/>
+<span class="text-accent font-semibold">The Solution:</span> A unified "Single Source of Truth" ensuring data integrity and consistency.
+                </p>
+</div>
+<!-- Real-Time Operational Intelligence -->
+<div class="card p-6 shadow-sm">
+<div class="flex items-center mb-3">
+<i class="fas fa-bolt text-3xl text-accent mr-4"></i>
+<h3 class="text-xl font-bold">Real-Time Intelligence</h3>
+</div>
+<p class="text-slate-700 leading-relaxed">
+<span class="font-semibold">The Pain:</span> Critical turnout data arrives too late to impact mobilization strategies.
+                    <br/>
+<span class="text-accent font-semibold">The Solution:</span> Live dashboards providing minute-by-minute visibility into ballot station activity.
+                </p>
+</div>
+<!-- Regulatory Compliance -->
+<div class="card p-6 shadow-sm">
+<div class="flex items-center mb-3">
+<i class="fas fa-file-shield text-3xl text-accent mr-4"></i>
+<h3 class="text-xl font-bold">Compliance & Auditing</h3>
+</div>
+<p class="text-slate-700 leading-relaxed">
+<span class="font-semibold">The Pain:</span> Israeli regulations demand strict transparency for voter communications.
+                    <br/>
+<span class="text-accent font-semibold">The Solution:</span> Built-in immutable audit trails for every modification and interaction.
+                </p>
+</div>
+<!-- Bilingual Support & Scale -->
+<div class="card p-6 shadow-sm">
+<div class="flex items-center mb-3">
+<i class="fas fa-language text-3xl text-accent mr-4"></i>
+<h3 class="text-xl font-bold">Accessibility & Scale</h3>
+</div>
+<p class="text-slate-700 leading-relaxed">
+<span class="font-semibold">The Pain:</span> Language barriers (Hebrew/English) and inefficient manual phone banks.
+                    <br/>
+<span class="text-accent font-semibold">The Solution:</span> Native RTL support and automated, data-driven telemarketing workflows.
+                </p>
+</div>
+</div>
+<!-- Data Visualization Section -->
+<div class="flex-grow grid grid-cols-3 gap-8 items-center border-t border-slate-200 pt-8">
+<div class="col-span-1">
+<h4 class="text-lg font-bold mb-2">Technical Problem Resolution</h4>
+<p class="text-sm text-slate-600">Eliminating Data Silos & N+1 Query issues resulted in drastic performance gains.</p>
+<div class="mt-4">
+<div class="flex items-end space-x-2">
+<span class="text-4xl font-bold text-highlight">93%</span>
+<span class="text-lg font-semibold pb-1">Efficiency Gain</span>
+</div>
+<p class="text-xs uppercase tracking-wider font-bold text-slate-400">Page Load Time Reduction</p>
+</div>
+</div>
+<div class="col-span-2 h-44 w-full" id="performanceChart"></div>
+</div>
+</div>
+</div>
+
+<script>
+    const chartDom = document.getElementById('performanceChart');
+    const myChart = echarts.init(chartDom);
+    const option = {
+        animation: false,
+        grid: {
+            top: 20,
+            bottom: 30,
+            left: 60,
+            right: 20
+        },
+        xAxis: {
+            type: 'category',
+            data: ['Traditional Silos', 'Electic Platform'],
+            axisLine: { lineStyle: { color: '#94a3b8' } },
+            axisLabel: { fontWeight: 'bold' }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Seconds',
+            splitLine: { lineStyle: { type: 'dashed' } }
+        },
+        series: [
+            {
+                data: [
+                    {
+                        value: 8,
+                        itemStyle: { color: '#94a3b8' },
+                        label: { show: true, position: 'top', formatter: '{c}s' }
+                    },
+                    {
+                        value: 0.5,
+                        itemStyle: { color: '#FF5722' },
+                        label: { show: true, position: 'top', formatter: '{c}s' }
+                    }
+                ],
+                type: 'bar',
+                barWidth: '40%'
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+<!-- PAGE 3 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header -->
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-3">
+<span class="px-3 py-1 bg-[#1A237E] text-white text-xs font-bold uppercase tracking-widest rounded">Competitive Edge</span>
+<div class="min-h-[1px] flex-grow bg-gray-300"></div>
+</div>
+<h1 class="text-5xl font-bold text-[#1A237E]">Market Differentiation & Core Features</h1>
+<p class="text-xl text-gray-500 mt-2">Purpose-built for the unique demands of high-stakes electoral operations.</p>
+</div>
+<!-- Features Grid -->
+<div class="grid grid-cols-3 gap-8 flex-grow">
+<!-- Feature 1 -->
+<div class="feature-card">
+<div class="icon-box"><i class="fas fa-vote-yea"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Ballot Station Management</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Dynamic shift scheduling and real-time staffing level monitoring across thousands of locations.
+                </p>
+</div>
+<!-- Feature 2 -->
+<div class="feature-card">
+<div class="icon-box"><i class="fas fa-address-book"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Voter Book Integration</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Seamless ingestion and matching of official electoral data with Israeli ID validation logic.
+                </p>
+</div>
+<!-- Feature 3 -->
+<div class="feature-card">
+<div class="icon-box"><i class="fas fa-chart-line"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Real-Time Dashboards</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Live election day command center with minute-by-minute turnout and mobilization statistics.
+                </p>
+</div>
+<!-- Feature 4 -->
+<div class="feature-card">
+<div class="icon-box"><i class="fas fa-comments"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Multi-Channel Outreach</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Integrated SMS, Email, and Phone communication with full delivery and response tracking.
+                </p>
+</div>
+<!-- Feature 5 -->
+<div class="feature-card">
+<div class="icon-box"><i class="fas fa-filter"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Complex Segmentation</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Advanced query builder allowing runtime targeting across 20+ voter attributes and dynamic fields.
+                </p>
+</div>
+<!-- Feature 6 -->
+<div class="feature-card" style="border-left-color: #FF5722;">
+<div class="icon-box" style="color: #FF5722;"><i class="fas fa-globe"></i></div>
+<h3 class="text-xl font-bold text-[#1A237E]">Native Bilingual Support</h3>
+<p class="text-sm text-gray-600 leading-relaxed">
+                    Full RTL Hebrew and English interface with localized communication templates for diverse electorates.
+                </p>
+</div>
+</div>
+<!-- Bottom Note -->
+<div class="mt-8 py-4 px-6 bg-[#E3F2FD] rounded flex items-center gap-4">
+<i class="fas fa-info-circle text-[#1A237E]"></i>
+<p class="text-sm text-[#1A237E] font-medium">
+                Electic outperforms generic CRM solutions by unifying the entire campaign lifecycle into a single source of truth.
+            </p>
+</div>
+</div>
+</div>
+
+<!-- PAGE 4 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5;">
+<div class="slide-container">
+<!-- Header -->
+<div class="mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-1 bg-[#FF5722]"></div>
+<span class="text-[#00796B] font-bold uppercase tracking-widest text-sm">System Engineering</span>
+</div>
+<h1 class="text-4xl font-extrabold text-[#1A237E]">Architectural Blueprint & Tech Stack</h1>
+<p class="text-lg text-gray-600 mt-1">A robust six-layer architecture designed for high-stakes election day reliability.</p>
+</div>
+<div class="grid grid-cols-12 gap-8 flex-grow">
+<!-- Left: 6-Layer Architecture Stack -->
+<div class="col-span-5 flex flex-col justify-between">
+<h2 class="text-xl font-bold text-[#1A237E] mb-4 flex items-center gap-2">
+<i class="fas fa-layer-group text-[#FF5722]"></i> 6-Layer Architecture
+                </h2>
+<div class="flex flex-col">
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 01</span>
+<div class="font-bold text-[#1A237E]">Client Layer</div>
+<div class="text-xs text-gray-500">Vue.js SPA, Mobile Ballot App, Admin Dashboards</div>
+</div>
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 02</span>
+<div class="font-bold text-[#1A237E]">API Gateway</div>
+<div class="text-xs text-gray-500">Auth Middleware, Rate Limiting, CORS Control</div>
+</div>
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 03</span>
+<div class="font-bold text-[#1A237E]">Application Layer</div>
+<div class="text-xs text-gray-500">Business Logic Services, Controllers, Queued Jobs</div>
+</div>
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 04</span>
+<div class="font-bold text-[#1A237E]">Data Layer</div>
+<div class="text-xs text-gray-500">Eloquent Models, Scopes, API Resources</div>
+</div>
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 05</span>
+<div class="font-bold text-[#1A237E]">Persistence Layer</div>
+<div class="text-xs text-gray-500">MySQL (JSON), Redis (Cache/Queue), File Storage</div>
+</div>
+<div class="layer-box">
+<span class="text-xs font-bold text-gray-400 uppercase">Layer 06</span>
+<div class="font-bold text-[#1A237E]">External Services</div>
+<div class="text-xs text-gray-500">MeiliSearch, Bugsnag, SMS/Email Gateways</div>
+</div>
+</div>
+</div>
+<!-- Right: Tech Rationale & Metrics -->
+<div class="col-span-7 space-y-6">
+<!-- Tech Choice Reasoning -->
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<h2 class="text-xl font-bold text-[#1A237E] mb-4">Core Technology Rationale</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<i class="fab fa-laravel text-red-600"></i>
+<span class="font-bold text-sm">Laravel 10</span>
+</div>
+<p class="text-xs text-gray-600">Eloquent ORM chosen for complex voter filtering and built-in queue events.</p>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<i class="fab fa-vuejs text-green-600"></i>
+<span class="font-bold text-sm">Vue.js 2</span>
+</div>
+<p class="text-xs text-gray-600">Stable ecosystem with Bootstrap integration for rapid dashboard delivery.</p>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<i class="fas fa-database text-blue-600"></i>
+<span class="font-bold text-sm">MySQL + JSON</span>
+</div>
+<p class="text-xs text-gray-600">Managed dynamic voter attributes without schema migrations via JSON fields.</p>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<i class="fas fa-search text-orange-400"></i>
+<span class="font-bold text-sm">MeiliSearch</span>
+</div>
+<p class="text-xs text-gray-600">Typo-tolerant, low-latency search essential for real-time operations.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- System Metrics -->
+<div class="bg-[#1A237E] p-6 rounded-lg text-white">
+<h2 class="text-lg font-bold mb-4 border-b border-white/20 pb-2">By The Numbers</h2>
+<div class="grid grid-cols-4 gap-4 text-center">
+<div>
+<div class="text-2xl font-bold">50k+</div>
+<div class="text-[10px] uppercase opacity-70">PHP Lines</div>
+</div>
+<div>
+<div class="text-2xl font-bold">30k+</div>
+<div class="text-[10px] uppercase opacity-70">Vue.js Lines</div>
+</div>
+<div>
+<div class="text-2xl font-bold">80+</div>
+<div class="text-[10px] uppercase opacity-70">Models</div>
+</div>
+<div>
+<div class="text-2xl font-bold">100+</div>
+<div class="text-[10px] uppercase opacity-70">Migrations</div>
+</div>
+</div>
+</div>
+<!-- Footer Summary Pill -->
+<div class="flex justify-between items-center bg-gray-100 p-4 rounded-lg">
+<div class="flex gap-2">
+<span class="tech-pill">Redis Queue</span>
+<span class="tech-pill">PHP 8.0</span>
+<span class="tech-pill">Audit Trails</span>
+</div>
+<span class="text-[10px] font-bold text-gray-400 uppercase italic">Scale-First Architecture</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 5 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5;">
+<div class="slide-container">
+<!-- Header -->
+<div class="mb-10">
+<h1 class="text-4xl font-extrabold text-[#1A237E] flex items-center gap-4">
+<i class="fas fa-project-diagram text-[#00796B]"></i>
+                Critical Operational Data Flows
+            </h1>
+<p class="text-lg text-gray-600 mt-2">Orchestrating operational backbone through three high-performance pipelines.</p>
+</div>
+<!-- Main Content: Three Flows Stack -->
+<div class="space-y-12">
+<!-- Flow 1: Voter Ingestion -->
+<div class="bg-[#F8FAFC] p-6 rounded-xl border border-gray-100">
+<div class="section-header flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold text-[#1A237E]">1. Voter Data Ingestion Pipeline</h2>
+<p class="text-sm text-gray-500">Transforming raw data into actionable insights</p>
+</div>
+<div class="bg-[#E3F2FD] px-4 py-1 rounded text-[#1A237E] font-bold text-xs uppercase tracking-widest">
+                        Speed: 100 Voters/Sec
+                    </div>
+</div>
+<div class="flex items-center flex-wrap gap-y-3">
+<div class="flow-step"><i class="fas fa-file-excel mr-2 text-green-600"></i>Excel Upload</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Validation</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Matching Logic</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Normalization</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Audit Logging</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step bg-[#1A237E] text-white border-none">DB Commit</div>
+</div>
+</div>
+<!-- Flow 2: Election Day Monitoring -->
+<div class="bg-[#F8FAFC] p-6 rounded-xl border border-gray-100">
+<div class="section-header flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold text-[#1A237E]">2. Real-Time Election Day Monitoring</h2>
+<p class="text-sm text-gray-500">Minute-by-minute visibility for tactical decisions</p>
+</div>
+<div class="bg-[#E0F2F1] px-4 py-1 rounded text-[#00796B] font-bold text-xs uppercase tracking-widest">
+                        Latency: &lt;1s
+                    </div>
+</div>
+<div class="flex items-center flex-wrap gap-y-3">
+<div class="flow-step"><i class="fas fa-mobile-alt mr-2 text-blue-500"></i>Ballot App Entry</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">API Update</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Status Aggregation</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Raw SQL Query</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step bg-[#00796B] text-white border-none">Dashboard Refresh</div>
+</div>
+</div>
+<!-- Flow 3: Telemarketing -->
+<div class="bg-[#F8FAFC] p-6 rounded-xl border border-gray-100">
+<div class="section-header flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold text-[#1A237E]">3. Automated Telemarketing Workflow</h2>
+<p class="text-sm text-gray-500">Scaling voter outreach through dynamic scripts</p>
+</div>
+<div class="bg-[#FFF3E0] px-4 py-1 rounded text-[#E65100] font-bold text-xs uppercase tracking-widest">
+                        50k+ Calls/Day
+                    </div>
+</div>
+<div class="flex items-center flex-wrap gap-y-3">
+<div class="flow-step"><i class="fas fa-users-cog mr-2 text-orange-500"></i>Shift Assign</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Voter Queue</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Call Initiation</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step">Questionnaire</div>
+<div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+<div class="flow-step bg-[#FF5722] text-white border-none">Action: SMS/Email</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-auto pt-8 border-t border-gray-100 flex justify-between text-xs font-semibold text-gray-400 tracking-widest uppercase">
+<span>Electic Full-Stack Voting System</span>
+<span>Data Flow Architecture</span>
+</div>
+</div>
+</div>
+
+<!-- PAGE 6 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header -->
+<div class="flex items-center justify-between mb-8">
+<div class="flex flex-col">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-1 bg-[#FF5722]"></div>
+<span class="text-[#00796B] font-bold uppercase tracking-widest text-sm">Advanced Engineering</span>
+</div>
+<h1 class="text-5xl font-extrabold text-[#1A237E]">Hero Feature: Dynamic Voter Querying</h1>
+</div>
+<div class="bg-[#E3F2FD] px-6 py-3 rounded-lg flex items-center gap-4">
+<i class="fas fa-microchip text-[#1A237E] text-2xl"></i>
+<div>
+<p class="text-[10px] uppercase text-gray-500 font-bold">Complexity Level</p>
+<p class="text-lg font-bold text-[#1A237E]">High (40+ Scopes)</p>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-12 gap-8 flex-grow">
+<!-- Left: Technical Implementation -->
+<div class="col-span-7 flex flex-col">
+<div class="bg-white rounded-xl shadow-lg overflow-hidden flex-grow flex flex-col">
+<div class="bg-gray-800 px-4 py-2 flex items-center justify-between">
+<span class="text-xs text-gray-400 font-mono">app/Models/Voter.php • scopeTryDynamicFields</span>
+<div class="flex gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+</div>
+</div>
+<div class="code-block p-6 text-sm flex-grow leading-relaxed">
+<p class="text-blue-400">public function <span class="text-yellow-200">scopeTryDynamicFields</span>(Builder $query, string $name, $data)</p>
+<p class="pl-4">{</p>
+<p class="pl-8 text-gray-500">// Sophisticated escaping for Hebrew JSON</p>
+<p class="pl-8">$searchString = <span class="text-green-300">'%'</span> . str_replace(<span class="text-green-300">'\\'</span>, <span class="text-green-300">'\\\\\\\\'</span>, json_encode(...)) . <span class="text-green-300">'%'</span>;</p>
+<p class="pl-8 mt-2">$query-&gt;whereHas(<span class="text-green-300">'dynamicFields'</span>, function ($q) {</p>
+<p class="pl-12">$q-&gt;whereRaw(<span class="text-green-300">'data'</span> . $operator . <span class="text-green-300">'?'</span>, [$searchString]);</p>
+<p class="pl-8">});</p>
+<p class="pl-4">}</p>
+</div>
+</div>
+<div class="mt-6 flex gap-4">
+<div class="flex-1 bg-white p-4 rounded-lg shadow-sm border-l-4 border-[#00796B]">
+<h4 class="font-bold text-[#1A237E] text-sm mb-1"><i class="fas fa-shield-alt mr-2 text-[#00796B]"></i>Type Safety</h4>
+<p class="text-xs text-gray-600">Typed scope methods prevent SQL injection while maintaining runtime flexibility.</p>
+</div>
+<div class="flex-1 bg-white p-4 rounded-lg shadow-sm border-l-4 border-[#FF5722]">
+<h4 class="font-bold text-[#1A237E] text-sm mb-1"><i class="fas fa-language mr-2 text-[#FF5722]"></i>Hebrew Support</h4>
+<p class="text-xs text-gray-600">Double-escaping logic handles complex RTL characters in MySQL JSON fields.</p>
+</div>
+</div>
+</div>
+<!-- Right: Performance & Stats -->
+<div class="col-span-5 flex flex-col gap-6">
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-[#1A237E] text-white p-6 rounded-xl text-center">
+<p class="text-3xl font-black">&lt;5ms</p>
+<p class="text-[10px] uppercase font-bold opacity-70">Query Construction</p>
+</div>
+<div class="bg-[#00796B] text-white p-6 rounded-xl text-center">
+<p class="text-3xl font-black">&lt;100ms</p>
+<p class="text-[10px] uppercase font-bold opacity-70">DB Execution</p>
+</div>
+</div>
+<!-- Logic Flow Diagram -->
+<div class="bg-white p-6 rounded-xl shadow-md flex-grow">
+<h3 class="font-bold text-[#1A237E] mb-6 flex items-center gap-2">
+<i class="fas fa-project-diagram text-[#FF5722]"></i>
+                    Segmentation Pipeline
+                </h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1A237E]">1</div>
+<div class="flex-grow bg-gray-50 p-3 rounded-md text-xs font-semibold">UI-Generated Filter JSON</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1A237E]">2</div>
+<div class="flex-grow bg-gray-50 p-3 rounded-md text-xs font-semibold">Dynamic Scope Invocation</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1A237E]">3</div>
+<div class="flex-grow bg-gray-50 p-3 rounded-md text-xs font-semibold">Eloquent Query Compilation</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1A237E]">4</div>
+<div class="flex-grow bg-orange-50 p-3 rounded-md text-xs font-bold text-[#FF5722]">Optimized SQL Result</div>
+</div>
+</div>
+</div>
+<!-- Summary Note -->
+<div class="bg-gray-100 p-4 rounded-lg flex items-start gap-3">
+<i class="fas fa-info-circle text-[#1A237E] mt-1"></i>
+<p class="text-xs text-gray-500 leading-relaxed">
+                    Uses <span class="font-mono text-[#1A237E]">whereHas</span> for relationship optimization, ensuring memory usage remains constant regardless of filter complexity.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 7 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header Section -->
+<div class="header-gradient w-full h-24 flex items-center px-12 justify-between shrink-0">
+<div>
+<h1 class="text-white text-3xl font-extrabold tracking-tight">Hero Feature: Mass Import & Real-Time Aggregation</h1>
+<p class="text-teal-100 text-sm font-medium">High-Performance Data Ingestion & Live Analytics Engine</p>
+</div>
+<div class="bg-white/10 px-4 py-2 rounded border border-white/20">
+<span class="text-white text-xs font-bold uppercase tracking-widest">Section 6.2 - 6.3</span>
+</div>
+</div>
+<!-- Main Content -->
+<div class="p-10 grid grid-cols-2 gap-8 flex-grow">
+<!-- Left Column: Mass Import -->
+<div class="flex flex-col space-y-4">
+<div class="flex items-center gap-3">
+<i class="fas fa-file-import text-2xl text-[#1A237E]"></i>
+<h2 class="text-2xl font-bold text-[#1A237E]">Intelligent Mass Voter Import</h2>
+</div>
+<p class="text-gray-600 text-sm leading-relaxed">
+                A robust pipeline designed to transform electoral books into trusted database records with zero data corruption.
+            </p>
+<div class="space-y-2">
+<h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Cascading Matching Strategy</h3>
+<div class="flex flex-col gap-2">
+<div class="logic-card p-3 flex items-center justify-between">
+<span class="text-sm font-bold text-[#1A237E]">Tier 1: Israeli ID Matching</span>
+<span class="text-[10px] bg-white px-2 py-1 rounded text-[#1A237E] font-bold">LUHN VALIDATION</span>
+</div>
+<div class="logic-card p-3 flex items-center justify-between">
+<span class="text-sm font-bold text-[#1A237E]">Tier 2: Phone Number Normalization</span>
+<span class="text-[10px] bg-white px-2 py-1 rounded text-[#1A237E] font-bold">FORMAT CROSS-CHECK</span>
+</div>
+<div class="logic-card p-3 flex items-center justify-between">
+<span class="text-sm font-bold text-[#1A237E]">Tier 3: Name + City Fallback</span>
+<span class="text-[10px] bg-white px-2 py-1 rounded text-[#1A237E] font-bold">REGIONAL COUNCILS</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-3">
+<div class="bg-white p-3 rounded shadow-sm border-t-2 border-[#FF5722]">
+<div class="text-2xl font-extrabold stat-highlight">100/s</div>
+<div class="text-[10px] font-bold text-gray-500 uppercase">Processing Rate</div>
+</div>
+<div class="bg-white p-3 rounded shadow-sm border-t-2 border-[#FF5722]">
+<div class="text-2xl font-extrabold stat-highlight">&lt; 50MB</div>
+<div class="text-[10px] font-bold text-gray-500 uppercase">Memory Footprint</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Real-Time Aggregation -->
+<div class="flex flex-col space-y-4">
+<div class="flex items-center gap-3">
+<i class="fas fa-chart-line text-2xl text-[#00796B]"></i>
+<h2 class="text-2xl font-bold text-[#00796B]">Real-Time Aggregation Engine</h2>
+</div>
+<p class="text-gray-600 text-sm leading-relaxed">
+                Optimized SQL architecture for instant election day insights without N+1 query bottlenecks.
+            </p>
+<div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+<h3 class="text-sm font-bold mb-3 text-[#1A237E]">The "Single-Query" Advantage</h3>
+<ul class="space-y-2">
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>9 Core Metrics:</strong> Computes voters, voted, and percentages in one round-trip.</span>
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>Role Scoping:</strong> Database-level city filtering via subqueries.</span>
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>SQL Offloading:</strong> Complex math performed at storage layer.</span>
+</li>
+</ul>
+</div>
+<div class="bg-[#1A237E] p-5 rounded-lg text-white">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold uppercase tracking-widest text-teal-300">Database Performance</span>
+<i class="fas fa-microchip text-teal-300"></i>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black">50-200</span>
+<span class="text-xl font-bold">ms</span>
+</div>
+<p class="text-[11px] mt-1 opacity-80 leading-tight">
+                    Execution time for full regional council aggregation across 100+ cities with sub-second refresh.
+                </p>
+</div>
+</div>
+</div>
+<!-- Footer Summary Bar -->
+<div class="bg-gray-100 h-14 flex items-center px-12 gap-8 shrink-0 border-t border-gray-200">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#1A237E] rounded-full"></span>
+<span class="text-[10px] font-bold text-gray-600 uppercase">Non-blocking Error Collection</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#00796B] rounded-full"></span>
+<span class="text-[10px] font-bold text-gray-600 uppercase">Audit Trail Integration</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#FF5722] rounded-full"></span>
+<span class="text-[10px] font-bold text-gray-600 uppercase">Concurrency Safe (Luhn/Regex)</span>
+</div>
+<div class="ml-auto flex items-center text-gray-400 gap-2">
+<i class="fas fa-database text-xs"></i>
+<span class="text-[10px] font-medium italic">Powered by Laravel 10 & MySQL JSON Optimizations</span>
+</div>
+</div>
+    </div>
+
+<!-- PAGE 8 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header -->
+<div class="flex justify-between items-end border-b-2 border-gray-200 pb-4 mb-8">
+<div>
+<h1 class="text-4xl font-bold text-[#1A237E]">Engineering Impact &amp; Technical Excellence</h1>
+<p class="text-[#00796B] font-semibold mt-1 uppercase tracking-widest text-sm">System Optimization &amp; Architectural Rigor</p>
+</div>
+<div class="text-right">
+<span class="text-xs text-gray-400 font-mono">CODEBASE AUDIT V2.6</span>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex flex-row gap-8 flex-grow">
+<!-- Left Column: Achievements -->
+<div class="w-1/2 flex flex-col gap-4">
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<i class="fas fa-users-cog text-[#00796B] text-xl"></i>
+<h3 class="font-bold text-[#1A237E] text-lg">Multi-Tenant Access Control</h3>
+</div>
+<p class="text-sm text-gray-600 leading-relaxed">
+                        Implemented city-based data isolation via <strong>Global Scopes</strong> in Eloquent models. Eliminated manual filtering across 50+ controllers and reduced leakage risks.
+                    </p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<i class="fas fa-cubes text-[#00796B] text-xl"></i>
+<h3 class="font-bold text-[#1A237E] text-lg">Modular Refactoring</h3>
+</div>
+<p class="text-sm text-gray-600 leading-relaxed">
+                        Refactored monolithic import jobs into switch-based handlers. Reduced <strong>Cyclomatic Complexity from 45 to 12</strong>, drastically improving system testability.
+                    </p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center gap-3 mb-3">
+<i class="fas fa-database text-[#00796B] text-xl"></i>
+<h3 class="font-bold text-[#1A237E] text-lg">N+1 Query Elimination</h3>
+</div>
+<p class="text-sm text-gray-600 leading-relaxed">
+                        Applied conditional eager loading (<code>withAll()</code> pattern) across voter relationships. Eliminated performance bottlenecks in dashboard aggregations.
+                    </p>
+</div>
+</div>
+<!-- Right Column: Metrics & Impact -->
+<div class="w-1/2 flex flex-col gap-4">
+<div class="bg-[#1A237E] p-6 rounded-lg text-white">
+<h2 class="text-lg font-bold mb-4 border-b border-white/20 pb-2">Performance Metrics</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="text-center">
+<div class="text-3xl font-black">93%</div>
+<div class="text-[10px] uppercase opacity-70">Page Load Reduction</div>
+</div>
+<div class="text-center">
+<div class="text-3xl font-black">45→12</div>
+<div class="text-[10px] uppercase opacity-70">Cyclomatic Complexity</div>
+</div>
+<div class="text-center">
+<div class="text-3xl font-black">50+</div>
+<div class="text-[10px] uppercase opacity-70">Controllers Optimized</div>
+</div>
+<div class="text-center">
+<div class="text-3xl font-black">0</div>
+<div class="text-[10px] uppercase opacity-70">Data Leaks</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm flex-grow">
+<div class="flex items-center gap-3 mb-4">
+<i class="fas fa-shield-alt text-[#FF5722] text-xl"></i>
+<h3 class="font-bold text-[#1A237E] text-lg">Security Enhancements</h3>
+</div>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>Global Scopes:</strong> Automatic city-based data filtering at model level</span>
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>Role-Based Access:</strong> Granular permissions for multi-tenant operations</span>
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>Audit Trails:</strong> Immutable logging for all data modifications</span>
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-[#00796B] mt-1"></i>
+<span class="text-sm text-gray-700"><strong>Input Validation:</strong> Luhn algorithm for Israeli ID verification</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-8 py-4 px-6 bg-[#E3F2FD] rounded flex items-center gap-4">
+<i class="fas fa-code text-[#1A237E]"></i>
+<p class="text-sm text-[#1A237E] font-medium">
+                Engineering excellence achieved through systematic refactoring, performance optimization, and security-first architecture.
+            </p>
+</div>
+</div>
+    </div>
+
+<!-- PAGE 9 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header -->
+<div class="mb-10">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-12 h-1 bg-[#FF5722]"></div>
+<span class="text-[#00796B] font-semibold tracking-widest uppercase text-sm">Governance &amp; Strategy</span>
+</div>
+<h1 class="text-5xl font-bold text-[#1A237E]">Strategic Trade-offs &amp; Security</h1>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-2 gap-12 flex-grow">
+<!-- Left: Architectural Trade-offs -->
+<div class="flex flex-col">
+<h2 class="text-2xl font-bold text-[#1A237E] mb-6 flex items-center gap-3">
+<i class="fas fa-balance-scale text-[#FF5722]"></i>
+                    Architectural Decisions
+                </h2>
+<div class="trade-off-item">
+<h3 class="font-bold text-[#1A237E]">Monolith vs. Microservices</h3>
+<p class="text-gray-600 text-sm">Prioritized development velocity and deployment simplicity. Vertical scaling planned for growth.</p>
+</div>
+<div class="trade-off-item">
+<h3 class="font-bold text-[#1A237E]">Vue.js 2 (Stability Focus)</h3>
+<p class="text-gray-600 text-sm">Chose ecosystem maturity and Bootstrap-Vue integration over Vue 3.</p>
+</div>
+<div class="trade-off-item">
+<h3 class="font-bold text-[#1A237E]">Raw SQL Performance</h3>
+<p class="text-gray-600 text-sm">Used in critical aggregation queries to ensure sub-second response times on election day.</p>
+</div>
+<div class="mt-4 p-4 bg-[#E3F2FD] rounded-lg">
+<p class="text-xs text-[#1A237E] font-semibold italic">
+                        "Deliberate choices to balance immediate campaign needs with long-term system evolution."
+                    </p>
+</div>
+</div>
+<!-- Right: Security Posture -->
+<div class="flex flex-col">
+<h2 class="text-2xl font-bold text-[#1A237E] mb-6 flex items-center gap-3">
+<i class="fas fa-shield-halved text-[#00796B]"></i>
+                    Security &amp; Data Integrity
+                </h2>
+<div class="grid grid-cols-1 gap-4">
+<!-- SQL Injection -->
+<div class="security-card flex gap-4 items-start">
+<div class="text-[#00796B] mt-1"><i class="fas fa-code"></i></div>
+<div>
+<h4 class="font-bold text-[#1A237E]">SQL Injection Prevention</h4>
+<p class="text-xs text-gray-600">Eliminated 20+ vectors via parameterized queries and multiselectColumnScope helpers.</p>
+</div>
+</div>
+<!-- Data Isolation -->
+<div class="security-card flex gap-4 items-start">
+<div class="text-[#00796B] mt-1"><i class="fas fa-users-slash"></i></div>
+<div>
+<h4 class="font-bold text-[#1A237E]">Multi-Tenant Isolation</h4>
+<p class="text-xs text-gray-600">City-based data access enforced at the database layer via Global Scopes in Voter models.</p>
+</div>
+</div>
+<!-- Audit Logging -->
+<div class="security-card flex gap-4 items-start">
+<div class="text-[#00796B] mt-1"><i class="fas fa-file-signature"></i></div>
+<div>
+<h4 class="font-bold text-[#1A237E]">Immutable Audit Trails</h4>
+<p class="text-xs text-gray-600">Full history of data changes via owen-it/laravel-auditing for regulatory compliance.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section Footer -->
+<div class="mt-auto pt-6 flex justify-between border-t border-gray-200">
+<span class="text-xs text-gray-400 font-medium uppercase tracking-widest">Electic: Technical Documentation</span>
+<div class="flex gap-4">
+<span class="text-[10px] bg-[#1A237E] text-white px-2 py-0.5 rounded">PASSED SECURITY AUDIT</span>
+<span class="text-[10px] bg-[#00796B] text-white px-2 py-0.5 rounded">RTL READY</span>
+</div>
+</div>
+</div>
+    </div>
+
+<!-- PAGE 10 SECTION -->
+<div class="slide-section" style="background-color: #F5F5F5; color: #333;">
+<div class="slide-container">
+<!-- Header -->
+<div class="flex justify-between items-end mb-10 border-b-2 border-gray-100 pb-6">
+<div>
+<h1 class="text-5xl font-extrabold text-[#1A237E] tracking-tight">Future Roadmap &amp; Scaling</h1>
+<p class="text-[#00796B] font-semibold mt-2 uppercase tracking-widest text-sm">Vision for 10x Operational Intelligence</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-400 font-bold uppercase">Strategic Horizon</p>
+</div>
+</div>
+<!-- Roadmap Grid -->
+<div class="grid grid-cols-3 gap-8 mb-10">
+<!-- Phase 1: Real-Time -->
+<div class="roadmap-card p-8 rounded-xl shadow-lg flex flex-col h-full">
+<div class="bg-[#E3F2FD] w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+<i class="fas fa-bolt-lightning text-2xl text-[#1A237E]"></i>
+</div>
+<h3 class="text-xl font-bold text-[#1A237E] mb-4">Real-Time WebSockets</h3>
+<ul class="text-sm text-gray-600 space-y-3 flex-grow">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        Replace 30s polling with sub-100ms push notifications.
+                    </li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        Live event broadcasting for ballot updates.
+                    </li>
+</ul>
+<div class="mt-6 pt-4 border-t border-gray-100 italic text-xs font-bold text-[#FF5722]">
+                    Latency Reduction: 30s → 100ms
+                </div>
+</div>
+<!-- Phase 2: AI Intelligence -->
+<div class="roadmap-card p-8 rounded-xl shadow-lg flex flex-col h-full">
+<div class="bg-[#E3F2FD] w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+<i class="fas fa-brain text-2xl text-[#1A237E]"></i>
+</div>
+<h3 class="text-xl font-bold text-[#1A237E] mb-4">AI Propensity Scoring</h3>
+<ul class="text-sm text-gray-600 space-y-3 flex-grow">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        ML models for voter segmentation and scoring.
+                    </li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        Predictive analytics for resource optimization.
+                    </li>
+</ul>
+<div class="mt-6 pt-4 border-t border-gray-100 italic text-xs font-bold text-[#FF5722]">
+                    Accuracy: 30% → 85%+
+                </div>
+</div>
+<!-- Phase 3: Field Resilience -->
+<div class="roadmap-card p-8 rounded-xl shadow-lg flex flex-col h-full">
+<div class="bg-[#E3F2FD] w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+<i class="fas fa-mobile-screen-button text-2xl text-[#1A237E]"></i>
+</div>
+<h3 class="text-xl font-bold text-[#1A237E] mb-4">Offline-First Mobile</h3>
+<ul class="text-sm text-gray-600 space-y-3 flex-grow">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        Native app with SQLite local storage for field workers.
+                    </li>
+<li class="flex items-start">
+<i class="fas fa-check-circle text-[#00796B] mt-1 mr-2"></i>
+                        Background sync with conflict resolution (CRDTs).
+                    </li>
+</ul>
+<div class="mt-6 pt-4 border-t border-gray-100 italic text-xs font-bold text-[#FF5722]">
+                    Reporting Time: 5min → 30sec
+                </div>
+</div>
+</div>
+<!-- Data Viz: Impact Metrics -->
+<div class="flex-grow flex gap-8 items-center bg-[#1A237E] rounded-2xl p-8 text-white">
+<div class="w-1/3">
+<h4 class="text-2xl font-bold mb-2">Predictive Impact</h4>
+<p class="text-sm text-blue-200">Transitioning from manual management to AI-driven mobilization intelligence.</p>
+<div class="mt-6 flex gap-4">
+<div class="bg-white/10 p-4 rounded-lg flex-1 text-center">
+<span class="block text-2xl font-black text-[#FF5722]">10x</span>
+<span class="text-[10px] uppercase font-bold text-gray-300">Efficiency Boost</span>
+</div>
+<div class="bg-white/10 p-4 rounded-lg flex-1 text-center">
+<span class="block text-2xl font-black text-[#FF5722]">40%</span>
+<span class="text-[10px] uppercase font-bold text-gray-300">Cost Reduction</span>
+</div>
+</div>
+</div>
+<!-- Simple Visualization Container -->
+<div class="w-2/3 h-48 bg-white/5 rounded-xl" id="chartContainer"></div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-6 text-center text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+            Electic Technical Roadmap • Case Study • Israel Electoral Operations
+        </div>
+</div>
+</div>
+
+<script>
+    const roadmapChartDom = document.getElementById('chartContainer');
+    const roadmapChart = echarts.init(roadmapChartDom);
+    const roadmapOption = {
+        title: { text: 'Evolution of Target Metrics', textStyle: { color: '#fff', fontSize: 14 }, left: '3%' },
+        tooltip: { trigger: 'axis' },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '25%', containLabel: true },
+        xAxis: { type: 'category', data: ['Reporting Latency', 'Voter Accuracy', 'Sync Speed'], axisLine: { lineStyle: { color: '#666' } }, axisLabel: { color: '#aaa' } },
+        yAxis: { type: 'value', max: 100, splitLine: { show: false }, axisLabel: { show: false } },
+        series: [
+            {
+                name: 'Current State',
+                type: 'bar',
+                data: [15, 30, 10],
+                itemStyle: { color: '#444' },
+                label: { show: true, position: 'top', formatter: '{c}%', color: '#fff' }
+            },
+            {
+                name: 'Future Roadmap',
+                type: 'bar',
+                data: [95, 85, 98],
+                itemStyle: { color: '#FF5722' },
+                label: { show: true, position: 'top', formatter: '{c}%', color: '#fff' }
+            }
+        ]
+    };
+    roadmapChart.setOption(roadmapOption);
+</script>
+
+</body>
+</html>
